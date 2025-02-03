@@ -1,5 +1,5 @@
-# eegFloss
+# *eegFloss*
 
-models: eegUsability, eegMobility, empaticaMobility, activpalMobility, eegRest
+models: *eegUsability*, *eegMobility*, *empaticaMobility*, *activpalMobility*, *eegRest*
 
-Project in-development
+Project in development
