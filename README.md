@@ -73,7 +73,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 | “v0.7.3” or “lite binary”   | Spectrogram                 | Similar to v0.6 but works on only spectrogram features, hence is faster.                          | Handy when fast results are needed without noise type differentiation.                          | 89.29             | ≈3 sec                       |
 | “v0.9” or “full”            | Spectrogram and statistical | Similar to v1.0 but is trained on the entire available dataset.                                   | Can be used if a more hypertuned model is needed.                                               | 90.11^            | ≈37 sec                      |
 
->^ Results are from a test set that is a subset of the training data. † Tested on a Core i7, 8C/16T, 2.5–4.8 GHz processor with no resource-intensive processes running in parallel.
+>^Results are from a test set that is a subset of the training data. †Tested on a Core i7, 8C/16T, 2.5–4.8 GHz processor with no resource-intensive processes running in parallel.
 
 ## Sample Outputs
 
