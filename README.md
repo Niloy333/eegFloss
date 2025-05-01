@@ -1,4 +1,4 @@
-# [![DOI](https://zenodo.org/badge/925334641.svg)](https://doi.org/10.5281/zenodo.xxxxx)
+<!--   [![DOI](https://zenodo.org/badge/925334641.svg)](https://doi.org/10.5281/zenodo.xxxxx) -->
 
 **The scripts will be added soon**
 
