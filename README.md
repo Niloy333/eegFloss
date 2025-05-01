@@ -83,13 +83,12 @@ Figure 2: The usability graph of a sample Zmax recording showing (a) a windowed 
  
 ### Hypnogram
 <img src="https://hochschule-rhein-waal.sciebo.de/s/cCDp7AW8q8TdQiY/download" alt="Hypnogram" width="900">
-Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments
-
+Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
 **See `sample_data\Zmax\output` for more sample outputs.**
 
 ## Reference
-Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss:A Python package for refining sleep EEG recordings with machine learning models* (in preparation).
+Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (in preparation).
 
 ## People
 © [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>, & [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>  
