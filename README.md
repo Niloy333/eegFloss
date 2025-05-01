@@ -18,10 +18,12 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 
 1. Download and install [Anaconda or Miniconda](https://www.anaconda.com/download/success) for your operating system.
 2. Download eegFloss, extract the compressed folder, and place it in a suitable and accessible directory.
-3. On Linux, ensure that the appropriate graphics driver is installed.
+3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
-   - **Linux/macOS**: Open a terminal.
+   - **Linux**: Open a terminal and run
+   `source ~/anaconda3/bin/activate` or `source ~/miniconda3/bin/activate`.
+   - **macOS**: Open a terminal.
 5. In the prompt, navigate to the extracted `eegFloss` directory. Example:  
    `cd C:\eegFloss_v1.0\`
 6. Create a new environment named `eegFloss` with all the necessary packages:  
