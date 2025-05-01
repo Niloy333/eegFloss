@@ -35,7 +35,14 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
      `spyder`
    - Or, use your preferred code editor and run the script from the command line. Example:  
      `python 1.eegFloss_check_usability_mobility.py`
-
+9. Known issue on Linux: **Could not initialize GLX**. To solve, ensure that step 3 was done correctly. Then try:    
+   -`pip install PyQtWebEngine`   
+   -`QT_XCB_GL_INTEGRATION=none`   
+   -`QT_DEBUG_PLUGINS=1`   
+   -`QT_QPA_PLATFORM=wayland spyder`   
+   -`QT_QPA_PLATFORM=xcb spyder`   
+   -`QT_QPA_PLATFORM=offscreen spyder`
+   
 ## Script Descriptions
 
 ### `1.eegFloss_check_usability_mobility.py`
