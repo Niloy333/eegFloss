@@ -96,8 +96,12 @@ Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a
 
 **See `sample_data\Zmax\output` for more sample outputs.**
 
-## Reference
+## Reference Paper
+More information on this package and the underlying models can be found in:
 Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (in preparation).
+
+## Cite
+If you find this package helpful and use it in your work, 
 
 ## People
 © [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>, & [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>  
@@ -106,6 +110,7 @@ Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package f
 <sup>#</sup>Developer  
 <sup>$</sup>Supervisor  
 
-**This program is provided *as is* without any warranties, express or implied.**  
-For questions, assistance, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
+**This program is provided *as is*, without any warranties, express or implied. 
+It is free to use, modify, and integrate with other non-commercial packages and services, provided that appropriate credit is given.**
 
+For questions, assistance, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
