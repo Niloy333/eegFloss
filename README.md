@@ -98,12 +98,15 @@ Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a
 
 ## Reference Paper
 More information on this package and the underlying models can be found in:
+
 Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (in preparation).
 
 ## Cite
 If you find this package helpful and use it in your work, please cite the reference paper as:
 
+
 And the package as:
+
 
 
 ## People
