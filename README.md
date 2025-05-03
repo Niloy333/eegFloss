@@ -106,6 +106,6 @@ Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package f
 <sup>#</sup>Developer  
 <sup>$</sup>Supervisor  
 
-**This program is provided "as is" without any warranties, express or implied.**  
+**This program is provided *as is* without any warranties, express or implied.**  
 For questions, assistance, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
 
