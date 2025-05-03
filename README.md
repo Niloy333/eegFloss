@@ -101,7 +101,10 @@ More information on this package and the underlying models can be found in:
 Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (in preparation).
 
 ## Cite
-If you find this package helpful and use it in your work, 
+If you find this package helpful and use it in your work, please cite the reference paper as:
+
+And the package as:
+
 
 ## People
 © [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>, & [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>  
