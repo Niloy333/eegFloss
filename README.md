@@ -42,6 +42,9 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
    -`QT_QPA_PLATFORM=wayland spyder`   
    -`QT_QPA_PLATFORM=xcb spyder`   
    -`QT_QPA_PLATFORM=offscreen spyder`
+10. Please go through the comments in input-output cells thoroughly and adjust all the fields based on your data and intended output before executing the script.
+
+The package was tested across multiple platforms, including Windows 10 and 11, Ubuntu 24.04.2, and macOS Sequoia 15.3.1 (on a MacBook Air, 2018 model).
    
 ## Script Descriptions
 
@@ -64,7 +67,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - Contains all imports and helper functions required by the main scripts.
 - Modify this file only if you need to customize core functionalities.
 
-**Please read the comments in the input/output cells of each script carefully before running the script.**
+**Please read the comments in the input-output cells of each script carefully before running the script.**
 
 ## Primary Artifacts:
 <img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="Artifacts" width="500">
