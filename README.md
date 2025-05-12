@@ -5,11 +5,11 @@
 # *eegFloss*: A Python Package to floss out artifacts from sleep EEG data
 
 ## Overview
-EEG data is often affected by artifacts caused by both internal factors (e.g., device issues) and external influences (e.g., movement or environmental noise). In sleep research, these artifacts frequently go undetected, which can impair the performance of automatic sleep-stage scoring models and reduce the reliability of study outcomes.
+EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or undetected, which can impair the performance and reliability of data-driven models or analyses (especially automatic sleep-stage scoring models) and reduce the credibility of study outcomes.
 
-Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
+Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
 
-**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually labeled EEG data from 15 participants (127 nights) recorded using the Zmax headband, but it can also be applied to sleep EEG data from other devices to detect common artifacts and assess data usability.
+**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants (127 nights) recorded using the Zmax headband, but it can be applied to sleep EEG data from other devices as well to detect common artifacts and assess data usability.
 
 The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper]().
 
@@ -21,7 +21,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
-   - **Linux**: Open a terminal and run
+   - **Linux**: Open a terminal and run:
    `source ~/anaconda3/bin/activate` or `source ~/miniconda3/bin/activate`.
    - **macOS**: Open a terminal.
 5. In the prompt, navigate to the extracted `eegFloss` directory. Example:  
@@ -35,17 +35,21 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
      `spyder`
    - Or, use your preferred code editor and run the script from the command line. Example:  
      `python 1.eegFloss_check_usability_mobility.py`
-9. Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that step 3 was done correctly. Then try:    
+9. Please go through the comments in input-output cells thoroughly and adjust all the fields based on your data and intended output before executing the script.
+
+The package was tested across multiple platforms, including Windows 10 and 11, Ubuntu 24.04.2, and macOS Sequoia 15.3.1 (on a MacBook Air, 2018 model).
+Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that step 3 was done correctly. Then try (one by one):    
    -`pip install PyQtWebEngine`   
    -`QT_XCB_GL_INTEGRATION=none`   
    -`QT_DEBUG_PLUGINS=1`   
    -`QT_QPA_PLATFORM=wayland spyder`   
    -`QT_QPA_PLATFORM=xcb spyder`   
    -`QT_QPA_PLATFORM=offscreen spyder`
-10. Please go through the comments in input-output cells thoroughly and adjust all the fields based on your data and intended output before executing the script.
-
-The package was tested across multiple platforms, including Windows 10 and 11, Ubuntu 24.04.2, and macOS Sequoia 15.3.1 (on a MacBook Air, 2018 model).
    
+## Primary Artifacts:
+<img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="Artifacts" width="600">
+Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
+
 ## Script Descriptions
 
 ### `1.eegFloss_check_usability_mobility.py`
@@ -69,10 +73,6 @@ The package was tested across multiple platforms, including Windows 10 and 11, U
 
 **Please read the comments in the input-output cells of each script carefully before running the script.**
 
-## Primary Artifacts:
-<img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="Artifacts" width="600">
-Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
-
 ## eegUsability Models
 
 | eegUsability version         | Feature set(s)              | Specialty                                                                                         | When to use                                                                                       | F1-score (%)      | Processing time (8-hr night)† |
@@ -91,11 +91,15 @@ Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sam
 
 ### Usability Graph
 <img src="https://hochschule-rhein-waal.sciebo.de/s/bMBS3aZRtYs87KH/download" alt="Usability Graph" width="1000">
-Figure 2: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
+
+
+>Figure 2: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
  
 ### Hypnogram
 <img src="https://hochschule-rhein-waal.sciebo.de/s/iiqmySRH7bHFg8R/download" alt="Hypnogram" width="1000">
-Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
+
+
+>Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
 **See `sample_data\Zmax\output` for more sample outputs.**
 
@@ -108,7 +112,7 @@ Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package f
 If you find this package helpful and use it in your work, please cite the reference paper as:
 
 
-And the package as:
+And cite the package as:
 
 
 
@@ -117,8 +121,8 @@ And the package as:
 <sup>1</sup>Radboud University Medical Center, Donders Institute for Brain, Cognition and Behaviour, Nijmegen, The Netherlands.  
 <sup>2</sup>Faculty of Technology and Bionics, Rhine-Waal University of Applied Sciences, Kleve, Germany.  
 <sup>#</sup>Developer  
-<sup>$</sup>Supervisor  
+<sup>$</sup>Supervisor
 
-**This program is provided *as is*, without any warranties, express or implied. eegFloss is free to use, modify, and integrate with other non-commercial packages and services, provided that appropriate credit is given.**
+**This package is provided *as is*, without any warranties, express or implied. eegFloss is free to use, modify, and integrate with other non-commercial packages and services, provided that appropriate credit is given.**
 
 For questions, assistance, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
