@@ -90,11 +90,11 @@ Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sam
 ## Sample Outputs
 
 ### Usability Graph
-<img src="https://hochschule-rhein-waal.sciebo.de/s/MO0QuL2M0mYwM22/download" alt="Usability Graph" width="900">
+<img src="https://hochschule-rhein-waal.sciebo.de/s/bMBS3aZRtYs87KH/download" alt="Usability Graph" width="900">
 Figure 2: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
  
 ### Hypnogram
-<img src="https://hochschule-rhein-waal.sciebo.de/s/cCDp7AW8q8TdQiY/download" alt="Hypnogram" width="900">
+<img src="https://hochschule-rhein-waal.sciebo.de/s/iiqmySRH7bHFg8R/download" alt="Hypnogram" width="900">
 Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
 **See `sample_data\Zmax\output` for more sample outputs.**
