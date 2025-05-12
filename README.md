@@ -2,7 +2,7 @@
 
 **The scripts will be added soon**
 
-# *eegFloss*: A Python Package to floss out artifacts from sleep EEG data
+# *eegFloss*: A Python Package to Floss Out Artifacts from Sleep EEG Data
 
 ## Overview
 EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or undetected, which can impair the performance and reliability of data-driven models or analyses (especially automatic sleep-stage scoring models) and reduce the credibility of study outcomes.
