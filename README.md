@@ -87,20 +87,13 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 
 ### TIB Detection and Accelerometer Requirements
 - Automatic TIB detection using the eegMobility model is validated only for Zmax data.
-- If you want to test it for another device, ensure that the tri-axial accelerometer data:
-   - is measured in units of g,
-   - falls within a range of ±2g (clip extreme values if needed)
-   - includes gravitational acceleration (meaning the normalized data should center around 1g).
+- If you want to test it for another device, ensure that the tri-axial accelerometer data is measured in units of g, falls within a range of ±2g (clip extreme values if needed), and includes gravitational acceleration (meaning the normalized data should center around 1g).
 - Analyzing EEG data without accompanying accelerometer signals may lead to the removal of some arousals due to lack of motion information.
 
 ### Miscellaneous
 - For non-Zmax devices, verify that sampling rates are correct. If initial results are suboptimal, consider applying normalization techniques.
 - Thoroughly read and **update all the fields** in the input-output cells according to your dataset and desired outputs before running the script.
-- The package has been tested on:
-    
-   - Windows 10 and 11
-   - Ubuntu 24.04.2
-   - macOS Sequoia 15.3.1 (MacBook Air, 2018)
+- The package has been tested on Windows 10 and 11, Ubuntu 24.04.2, and macOS Sequoia 15.3.1 (MacBook Air, 2018)
 - Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that step 3 of [Installation](#Installation) was done correctly. Then try (one by one):
   
    -`pip install PyQtWebEngine`   
@@ -111,7 +104,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
    -`QT_QPA_PLATFORM=offscreen spyder`
 
 ## Primary Artifacts
-<img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="Artifacts" width="600">
+<img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="primary_artifacts" width="600">
 
 >Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
 
@@ -132,12 +125,12 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 ## Sample Outputs
 
 ### Usability Graph
-<img src="https://hochschule-rhein-waal.sciebo.de/s/bMBS3aZRtYs87KH/download" alt="Usability Graph" width="1000">
+<img src="https://hochschule-rhein-waal.sciebo.de/s/bMBS3aZRtYs87KH/download" alt="usability_graph_zmax" width="1000">
 
 >Figure 2: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
  
 ### Hypnogram
-<img src="https://hochschule-rhein-waal.sciebo.de/s/iiqmySRH7bHFg8R/download" alt="Hypnogram" width="1000">
+<img src="https://hochschule-rhein-waal.sciebo.de/s/iiqmySRH7bHFg8R/download" alt="hypnogram_zmax" width="1000">
 
 >Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
