@@ -35,21 +35,6 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
      `spyder`
    - Or, use your preferred code editor and run the script from the command line. Example:  
      `python 1.eegFloss_check_usability_mobility.py`
-9. Please go through the comments in input-output cells thoroughly and adjust all the fields based on your data and intended output before executing the script.
-
-The package was tested across multiple platforms, including Windows 10 and 11, Ubuntu 24.04.2, and macOS Sequoia 15.3.1 (on a MacBook Air, 2018 model).
-Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that step 3 was done correctly. Then try (one by one):    
-   -`pip install PyQtWebEngine`   
-   -`QT_XCB_GL_INTEGRATION=none`   
-   -`QT_DEBUG_PLUGINS=1`   
-   -`QT_QPA_PLATFORM=wayland spyder`   
-   -`QT_QPA_PLATFORM=xcb spyder`   
-   -`QT_QPA_PLATFORM=offscreen spyder`
-   
-## Primary Artifacts:
-<img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="Artifacts" width="600">
-
->Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
 
 ## Script Descriptions
 
@@ -73,6 +58,61 @@ Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that s
 - Modify this file only if you need to customize core functionalities.
 
 **Please read the comments in the input-output cells of each script carefully before running the script.**
+
+# Read before Execution
+
+### File Type: EDF
+
+- eegFloss currently supports only EDF files. Therefore, raw EEG signal(s) must be stored in the EDF format.
+- If your data is in a different format, check whether the associated software suite of your recording device allows exporting or converting data to EDF.
+- If not, you can manually convert data using Python libraries such as [PyEDFlib](https://pyedflib.readthedocs.io/en/latest/) or [MNE](https://github.com/mne-tools/mne-python).
+
+### Sleep-Stage Scoring
+- eegFloss **does not** include a built-in automatic sleep-stage scorer and cannot infer sleep stages from EEG or other signals.
+- However, if you provide sleep scores alongside your data, it can generate artifact-rejected sleep scores by combining the provided sleep scores and the detected data usability.
+- If your data is not manually scored, consider using open-source automatic sleep scorers like [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), or [Dreamento](https://github.com/dreamento/dreamento) (only for Zmax data).
+
+### Sleep Score Format
+- Sleep stages are expected to be labeled as 0 = Wake, 1 = N1, 2 = N2, 3 = N3, and 4 or 5 = REM. Deviating from this convention will result in incorrect visualizations and sleep statistics.
+- The sleep scores must be stored in the first column of a TXT/CSV file located in the same directory as the corresponding EDF file. The number of epochs must match the recording duration.
+
+### Data Organization
+- Each recording should reside in a separate directory. Placing multiple recordings in the same folder will cause eegFloss outputs to overwrite one another. Provide the parent directory as the `Raw_Data_Dir`.
+
+### Output Directory Management
+- While it is possible to save eegFloss outputs in the same directory as the recordings by setting `Output_Dir = Raw_Data_Dir`, this is not recommended.
+- eegFloss checks for prior outputs to skip redundant processing. So, consider saving the additional outputs, even if they are not needed for your analysis.
+- If you later modify key settings (e.g., change the usability model or adjust TIB thresholds), the tool may incorrectly skip reprocessing due to existing outputs. To prevent this, use a separate output directory for each round of processing.
+- Feature extraction is typically the most time-consuming step (unless using a ‘lite’ model). To avoid recomputation, copy the `eegFloss_stat_features.npz` files to the data directory alongside the EDF files after processing the data once.
+
+### TIB Detection and Accelerometer Requirements
+- Automatic TIB detection using the eegMobility model is validated only for Zmax data.
+- If you want to test it for another device, ensure that the tri-axial accelerometer data:
+   - is measured in units of g,
+   - falls within a range of ±2g (clip extreme values if needed)
+   - includes gravitational acceleration (meaning the normalized data should center around 1g).
+- Analyzing EEG data without accompanying accelerometer signals may lead to the removal of some arousals due to lack of motion information.
+
+### Miscellaneous
+- For non-Zmax devices, verify that sampling rates are correct. If initial results are suboptimal, consider applying normalization techniques.
+- Thoroughly read and **update all the fields** in the input-output cells according to your dataset and desired outputs before running the script.
+- The package has been tested on:
+   - Windows 10 and 11
+   - Ubuntu 24.04.2
+   - macOS Sequoia 15.3.1 (MacBook Air, 2018)
+
+- Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that step 3 was done correctly. Then try (one by one):
+   -`pip install PyQtWebEngine`   
+   -`QT_XCB_GL_INTEGRATION=none`   
+   -`QT_DEBUG_PLUGINS=1`   
+   -`QT_QPA_PLATFORM=wayland spyder`   
+   -`QT_QPA_PLATFORM=xcb spyder`   
+   -`QT_QPA_PLATFORM=offscreen spyder`
+
+## Primary Artifacts
+<img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="Artifacts" width="600">
+
+>Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
 
 ## eegUsability Models
 
@@ -124,4 +164,4 @@ And cite the package as:
 
 **This package is provided *as is*, without any warranties, express or implied. eegFloss is free to use, modify, and integrate with other non-commercial packages and services, provided that appropriate credit is given.**
 
-For questions, assistance, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
+For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
