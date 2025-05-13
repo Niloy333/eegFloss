@@ -101,7 +101,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
    - Windows 10 and 11
    - Ubuntu 24.04.2
    - macOS Sequoia 15.3.1 (MacBook Air, 2018)
-- Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that step 3 was done correctly. Then try (one by one):
+- Known issue on Linux: **Could not initialize GLX**. To solve this, ensure that step 3 of [Installation](#Installation) was done correctly. Then try (one by one):
   
    -`pip install PyQtWebEngine`   
    -`QT_XCB_GL_INTEGRATION=none`   
