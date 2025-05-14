@@ -4,8 +4,7 @@
 
 # *eegFloss*: A Python Package to *Floss Out* Artifacts from Sleep EEG Recordings
 
-**Table of Contents**
-
+**Table of Contents :**
 [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read Before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people)
 
 ## Overview
