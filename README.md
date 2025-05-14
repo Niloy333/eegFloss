@@ -19,7 +19,7 @@ The package also includes *eegMobility*—an ML model that detects the degree of
 It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda environment. Follow these steps:
 
 1. Download and install [Anaconda or Miniconda](https://www.anaconda.com/download/success) for your operating system.
-2. Download eegFloss, extract the compressed file, and place it in a suitable and accessible directory.
+2. [Download eegFloss](https://github.com/Niloy333/eegFloss/archive/refs/heads/base.zip), extract the compressed file, and place it in a suitable and accessible directory.
 3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
@@ -41,11 +41,11 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 ## Script Descriptions
 
 ### `1.eegFloss_check_usability_mobility.py`
-- Detects artifacts in sleep EEG data using a chosen eegUsability model. See [eegUsability Models](#eegusability-models) for details on a specific model.
+- Detects artifacts in sleep EEG data using a chosen [eegUsability model](#eegusability-models).
 - Aggregates the provided sleep scores with *usability scores* (the outcomes of artifact detection) using a majority rule (an epoch is marked unusable if more than half of its constituent segments are unusable) to generate *artifact-rejected sleep scores*.
-- Automatically identifies Lights Out and Lights On moments and computes Time-in-Bed (TIB) using a chosen *eegMobility* model.
+- Automatically identifies *Lights Out* and *Lights On* moments using a chosen *eegMobility* model and computes Time-in-Bed (TIB).
 - Computes common sleep statistics based on the artifact-rejected sleep scores and TIB.
-- Generates visualizations such as *usability graphs* (shows channel-wise data usability) and *hypnograms* (shows the overall outcomes).
+- Generates visualizations such as *usability graphs* (shows channel-wise data usability) and *hypnograms* (shows the overall outcomes) to better illustrate the models' outputs.
 
 ### `2.eegFloss_spiky_noise_filter.py`
 - Identifies the presence of Spiky artifacts in EEG recordings.
@@ -53,7 +53,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - Saves the cleaned data to a new file (which can then be sleep-scored).
 
 ### `3.eegFloss_file_cleanup.py`
-- Deletes intermediate or unnecessary files generated during the processing pipeline to reduce clutter.
+- Deletes intermediate or unnecessary files generated during processing to reduce clutter.
 
 ### `eegFloss_functions.py`
 - Contains all imports and helper functions required by the main scripts.
