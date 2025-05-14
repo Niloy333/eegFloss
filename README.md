@@ -72,7 +72,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 ### Sleep-Stage Scoring
 - eegFloss **does not** include a built-in automatic sleep-stage scorer and cannot infer sleep stages from EEG or other signals.
 - However, if you provide sleep scores alongside your data, it can generate artifact-rejected sleep scores by combining the provided sleep scores and the detected data usability.
-- If your data is not manually scored, consider using open-source automatic sleep scorers like [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), or [Dreamento](https://github.com/dreamento/dreamento) (only for Zmax data).
+- If your data is not manually scored, consider using open-source automatic sleep scorers such as [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), or [Dreamento](https://github.com/dreamento/dreamento) (only for Zmax data).
 
 ### Sleep Score Format
 - Sleep stages are expected to be labeled as 0 = Wake, 1 = N1, 2 = N2, 3 = N3, and 4 or 5 = REM. Deviating from this convention will result in incorrect visualizations and sleep statistics.
