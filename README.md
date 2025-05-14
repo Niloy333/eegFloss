@@ -156,6 +156,6 @@ And cite the package as:
 <sup>#</sup>Developer  
 <sup>$</sup>Supervisor
 
-**This package is provided *as is*, without any warranties, express or implied. eegFloss is free to use, modify, and integrate with other non-commercial packages and services, provided that appropriate credit is given.**
+**This package is provided *as is*, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.**
 
 For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
