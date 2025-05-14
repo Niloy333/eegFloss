@@ -19,7 +19,7 @@ The package also includes *eegMobility*—an ML model that detects the degree of
 It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda environment. Follow these steps:
 
 1. Download and install [Anaconda or Miniconda](https://www.anaconda.com/download/success) for your operating system.
-2. Download eegFloss, extract the compressed folder, and place it in a suitable and accessible directory.
+2. Download eegFloss, extract the compressed file, and place it in a suitable and accessible directory.
 3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
@@ -79,7 +79,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - The sleep scores must be stored in the first column of a TXT/CSV file located in the same directory as the corresponding EDF file. The number of epochs must match the recording duration.
 
 ### Data Organization
-- Each recording should reside in a separate directory. Placing multiple recordings in the same folder will cause eegFloss outputs to overwrite one another. Provide the parent directory as the `Raw_Data_Dir`.
+- Each recording should reside in a separate directory. Placing multiple recordings in the same directory will cause eegFloss outputs to overwrite one another. Provide the parent directory as the `Raw_Data_Dir`.
 
 ### Output Directory Management
 - While it is possible to save eegFloss outputs in the same directory as the recordings by setting `Output_Dir = Raw_Data_Dir`, this is not recommended.
