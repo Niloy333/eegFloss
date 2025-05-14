@@ -106,6 +106,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
    QT_QPA_PLATFORM=offscreen spyder
 
 ## Primary Artifacts
+eegUsability detects the following artifacts in raw sleep EEG data:
 <img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="primary_artifacts" width="600">
 
 >Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
