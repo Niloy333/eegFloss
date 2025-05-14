@@ -18,7 +18,7 @@ The package also includes *eegMobility*—an ML model that detects the degree of
 ## Installation
 It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda environment. Follow these steps:
 
-1. Download and install [Anaconda or Miniconda](https://www.anaconda.com/download/success) for your operating system.
+1. Download and install <a href="https://www.anaconda.com/download/success" target="_blank" rel="noopener noreferrer">Anaconda or Miniconda</a> for your operating system.
 2. Download eegFloss, extract the compressed file, and place it in a suitable and accessible directory.
 3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
