@@ -7,11 +7,11 @@
 **Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read Before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people)
 
 ## Overview
-EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or undetected, which can impair the performance and reliability of data-driven models or analyses (especially automatic sleep-stage scoring models) and reduce the credibility of study outcomes.
+EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or undetected, which can impair the performance and reliability of data-driven models or analyses, especially automatic sleep-stage scoring models,  and reduce the credibility of study outcomes.
 
 Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
 
-**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants (127 nights) recorded using the Zmax headband, but it can be applied to sleep EEG data from other devices as well to detect common artifacts and assess data usability.
+**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax headband. However, it can also be applied to sleep EEG data from other devices to detect common artifacts and assess data usability.
 
 The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper]().
 
@@ -142,18 +142,18 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 ## Reference Paper
 More information on this package and the underlying models can be found in:
 
-Sikder, N., Zerr, P., Krauledat, M., & Dresler, M. *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (in preparation).
+Sikder, N., Zerr, P., Dresler, M., & Krauledat, M., *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (submitted).
 
 ## Cite
 If you find this package helpful and use it in your work, please cite the reference paper as:
-
+TBA
 
 And cite the package as:
-
+TBA
 
 
 ## People
-© [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>, & [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>  
+© [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, & [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>   
 <sup>1</sup>Radboud University Medical Center, Donders Institute for Brain, Cognition and Behaviour, Nijmegen, The Netherlands.  
 <sup>2</sup>Faculty of Technology and Bionics, Rhine-Waal University of Applied Sciences, Kleve, Germany.  
 <sup>#</sup>Developer  
@@ -161,4 +161,4 @@ And cite the package as:
 
 **This package is provided *as is*, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.**
 
-For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl)
+For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@hochschule-rhein-waal.de)
