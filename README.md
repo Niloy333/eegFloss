@@ -63,9 +63,9 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 
 # Read before Execution
 
-### File Type: EDF
+### File Type: EDF & BDF
 
-- eegFloss currently supports only EDF files. Therefore, raw EEG signal(s) must be stored in the EDF format.
+- eegFloss currently supports only EDF and BDF files. Therefore, raw EEG signal(s) must be stored in the EDF/BDF format.
 - If your data is in a different format, check whether the associated software suite of your recording device allows exporting or converting data to EDF.
 - If not, you can manually convert data using Python libraries such as [PyEDFlib](https://pyedflib.readthedocs.io/en/latest/) or [MNE](https://github.com/mne-tools/mne-python).
 
