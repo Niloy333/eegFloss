@@ -1,5 +1,8 @@
-[![DOI](https://zenodo.org/badge/925334641.svg)](https://doi.org/10.5281/zenodo.15823969)
 ![License](https://img.shields.io/github/license/Niloy333/eegFloss?style=flat&color=brightgreen)
+[![DOI](https://zenodo.org/badge/925334641.svg)](https://doi.org/10.5281/zenodo.15823969)
+![Repo size](https://img.shields.io/github/repo-size/Niloy333/eegFloss)
+![Last commit](https://img.shields.io/github/last-commit/Niloy333/eegFloss)
+![Downloads](https://img.shields.io/github/downloads/Niloy333/eegFloss/total)
 
 # *eegFloss*: A Python Package to *Floss out* Artifacts from Sleep EEG Recordings
 
