@@ -25,15 +25,15 @@ Copyright (c) 2025 Niloy Sikder
 6. For non-Zmax data, carefully review the sampling rates. If initial outputs are unsatisfactory, consider implementing normalization techniques.
 7. If sleep statistics are calculated without TIB detection, the entire duration of the night will be considered as TIB.
 8. Consider saving the additional outputs, even if they are not immediately needed, as they can help the script skip certain steps and save time when reprocessing the same nights.
-9. Adjust all the input variables accrodingly to avoid errors.
+9. Adjust all the input variables accordingly to avoid errors.
 10. If you decide to change the ML model's version, please make sure the input & output directories do not contain previous results.
 """
 #%% Primary inputs:
 
-Raw_Data_Dir = r'C:\0.eegFloss_v1.0\sample_data\Zmax'
+Raw_Data_Dir = r'C:\eegFloss\sample_data'
 # Directory containing the EDF files with EEG data. Each night's data must be stored in a separate subdirectory within Raw_Data_Dir. Always provide absolute paths.
 
-Output_Dir = r'C:\eegFloss_v1.0\sample_data\Zmax\output1'
+Output_Dir = r'C:\eegFloss\sample_output'
 # Directory to store the generated scores and other output files.
 # = Raw_Data_Dir (will save outputs alongside the data)
 
