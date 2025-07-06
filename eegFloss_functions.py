@@ -1447,7 +1447,7 @@ def plot_usability_graph(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_sam
     
     num_plot = num_signals * 2 + 1
     plt.ioff()
-    plt.rcParams['font.family'] = 'Times New Roman'
+    # plt.rcParams['font.family'] = 'Times New Roman'
     fig, axs = plt.subplots(num_plot, 1, figsize=(15, num_plot * 1.75))
     
     title_base = f"Usability graph showing artifacts detected in each {Device_Name} EEG channel by eegUsability ({Usability_Model_Version}) in {Usability_Epoch_Length}-second epochs (at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')})\nof recording: '{src_night}'"
@@ -1572,7 +1572,7 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
         agg_scores_plot[agg_scores_plot == Unusable_Label] = -1
     
     plt.ioff()
-    plt.rcParams['font.family'] = 'Times New Roman'
+    # plt.rcParams['font.family'] = 'Times New Roman'
     fig, axs = plt.subplots(num_plot, 1, figsize=(15, num_plot * 1.75))
 
     title_base = f"Hypnogram with (aggregated) data usability, device: {Device_Name}, sleep scores: '{Sleep_Scores_Flname}' in {Sleep_Scores_Epoch_Length}-sec epochs, usability model: eegUsability {Usability_Model_Version} in {Usability_Epoch_Length}-sec epochs\nData source: '{src_night}'"
