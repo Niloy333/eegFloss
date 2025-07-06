@@ -592,20 +592,44 @@ def make_samples(signals, samp_rate, key):
 #     return spec_feats.astype(np.float32)
 
 #%%
-def extract_spectrogram_features(all_channels, samp_rate):
+def extract_spectrogram_features(all_channels, samp_rate, n_cores=-1):
+    def _resample_channel(e, c, signal, P, target_points, kind):
+        x_old = np.arange(P)
+        x_new = np.linspace(0, P - 1, target_points)
+        f = interp1d(x_old, signal, kind=kind)
+        return e, c, f(x_new)
+    
+    def _resample(channels, target_points, kind='cubic'):
+        E, C, P = channels.shape
+        if P == target_points:
+            return channels, 1.0
+        results = Parallel(n_jobs=n_cores)(
+            delayed(_resample_channel)(e, c, channels[e, c], P, target_points, kind)
+            for e in range(E)
+            for c in range(C))
+        out = np.empty((E, C, target_points), dtype=channels.dtype)
+        for e, c, res in results:
+            out[e, c] = res
+        return out, (target_points / P)
+    
     def _compute_spectrogram(epoch_idx, channel_idx, signal1, fs):
         _, _, Sxx = spectrogram(signal1, fs)
         return epoch_idx, channel_idx, Sxx.T
-    num_epochs, num_channels, _ = all_channels.shape
+    
+    num_epochs, num_channels, num_points = all_channels.shape
+    target_points = 10 * 256  # 2560
+    all_channels, rate_factor = _resample(all_channels, target_points, kind='cubic')
+    samp_rate *= rate_factor
     _, _, Sxx_sample = spectrogram(all_channels[0, 0], samp_rate)
     time_bins, freq_bins = Sxx_sample.T.shape
-    spec_feats = np.zeros((num_epochs, num_channels, time_bins, freq_bins), dtype='float32')
+    spec_feats = np.zeros((num_epochs, num_channels, time_bins, freq_bins),
+                          dtype='float32')
     results = Parallel(n_jobs=n_cores)(
         delayed(_compute_spectrogram)(e, c, all_channels[e, c], samp_rate)
         for e in range(num_epochs)
         for c in range(num_channels))
     for e, c, Sxx_T in results:
-        spec_feats[e, c, :, :] = Sxx_T    
+        spec_feats[e, c] = Sxx_T
     return spec_feats
 
 #%%
@@ -1391,7 +1415,7 @@ def spectrogram_plot_calc(signals, samp_rate):
     def _compute_spectrogram(signal1):
         freqs, times, Spec = spectrogram_lspopt(
             signal1, samp_rate,
-            nperseg=int(Usability_Epoch_Length * samp_rate), noverlap = 0)
+            nperseg=int(10 * samp_rate), noverlap = 0)
         return Spec[3:303, :], freqs[3:303], times
     results = Parallel(n_jobs=n_cores)(
         delayed(_compute_spectrogram)(signals[i, :])
