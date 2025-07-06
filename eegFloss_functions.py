@@ -156,6 +156,7 @@ def toc(start_time, m, n, N):
     total_remaining_secs %= 3600
     r_mins = total_remaining_secs / 60
     print(f"{Fore.CYAN}{Style.BRIGHT}\nMean processing time per night: {mins_per_night} min {sec_per_night_2} sec.{Style.RESET_ALL}")
+    
     if r_days > 0:
         print(f"{Fore.CYAN}{Style.BRIGHT}Estimated remaining time: {r_days} days {r_hrs} hrs {r_mins:.0f} mins.{Style.RESET_ALL}")
     elif r_hrs > 0:
@@ -171,46 +172,63 @@ def toc2(tic1):
 def initial_checks():
     if Aggregate_Scores is True and (Sleep_Scores_Epoch_Length % Usability_Epoch_Length) != 0:
         raise ValueError(f"{Fore.RED}{Style.BRIGHT}Sleep_Scores_Epoch_Length must be divisible by Usability_Epoch_Length when Aggregate_Scores = True.{Style.RESET_ALL}")
+    
     if lgb.__version__ != '3.3.2':
         raise ImportError(f"{Fore.RED}{Style.BRIGHT}lightgbm version must be 3.3.2, but found {lgb.__version__}{Style.RESET_ALL}")
+    
     try:
         if version("tsfel") != "0.1.4":
             raise ImportError("{Fore.RED}{Style.BRIGHT}TSFEL version must be 0.1.4.{Style.RESET_ALL}")
     except PackageNotFoundError:
         raise ImportError("{Fore.RED}{Style.BRIGHT}TSFEL is not installed.{Style.RESET_ALL}")
+    
     if scipy.__version__ != "1.8.1":
         raise ImportError(f"{Fore.RED}{Style.BRIGHT}scipy version must be 1.8.1, but found {scipy.__version__}{Style.RESET_ALL}")
+    
     if ACC_Channels is not None:
         if len(ACC_Channels) != 3:
             raise ValueError(f"{Fore.RED}{Style.BRIGHT}ACC_Channels must contain three channels' names representing tri-axial ACC data or be None.{Style.RESET_ALL}")
         if '.edf' in ACC_Channels or '.EDF' in ACC_Channels:
             raise ValueError(f"{Fore.RED}{Style.BRIGHT}Please provide EEG and ACC channels' names without file format (.edf/.EDF).{Style.RESET_ALL}")            
+    
     if '.edf' in EEG_Channels or '.EDF' in EEG_Channels:
         raise ValueError(f"{Fore.RED}{Style.BRIGHT}Please provide EEG and ACC channels' names without file format (.edf/.EDF).{Style.RESET_ALL}")
+    
     if Sleep_Scores_Flname is not None:
         if not (Sleep_Scores_Flname.endswith('.txt') or Sleep_Scores_Flname.endswith('.csv')) or Sleep_Scores_Flname == 'pseudo_scores':
             raise ValueError(f"{Fore.RED}{Style.BRIGHT}Sleep_Scores_Flname must be in .txt or .csv format.{Style.RESET_ALL}")
+    
     if Aggregate_Scores is True:
         if (Unusable_Label > -1 and Unusable_Label < 6) or not isinstance(Unusable_Label, int):
             raise ValueError(f"{Fore.RED}{Style.BRIGHT}Unusable_Label must be an integer and -1⩾Unusable_Label⩾6 to avoid conflicts with sleep scores.{Style.RESET_ALL}")
+    
     if Device_Name == 'Zmax' and Ignore_M_Shaped_Noise is True:
         print(f"{Fore.YELLOW}{Style.BRIGHT}Warning: For Zmax data, Ignore_M_Shaped_Noise should be False.{Style.RESET_ALL}")
+    
     if Device_Name == 'Zmax' and All_Signals_in_One_File is True:
         print(f"{Fore.YELLOW}{Style.BRIGHT}Warning: For Zmax data, All_Signals_in_One_File should be False.{Style.RESET_ALL}")
+    
     if Device_Name != 'Zmax' and Determine_TIB is True:
         print(f"{Fore.YELLOW}{Style.BRIGHT}Warning: The eegMobility model was trained on Zmax ACC data and may give erroneous outputs while checking data from other devices.{Style.RESET_ALL}")
+    
     if Device_Name != 'Zmax' and Check_Usability is True:
         print(f"{Fore.YELLOW}{Style.BRIGHT}Please note that the eegUsability model was trained on Zmax (EEG and ACC) data. Please manually check outputs (especially usability graphs) to see if adjustments (such as data normalization) are required. {Style.RESET_ALL}")
+    
     if len(EEG_Channels) < 1:
         raise ValueError(f"{Fore.RED}{Style.BRIGHT}No EEG_Channels were given (or incorrect format) Expected: ['channel1_name', 'channel2_name', ...].{Style.RESET_ALL}")
+    
     if Output_Dir == Raw_Data_Dir:
         print(f"{Fore.YELLOW}{Style.BRIGHT}eegFloss outputs will be saved alongside the EDF files containing EEG data.{Style.RESET_ALL}")
+    
     if not os.path.isabs(Raw_Data_Dir):
         raise ValueError(f"{Fore.RED}{Style.BRIGHT}Please provide absolute paths in Raw_Data_Dir.{Style.RESET_ALL}")
+    
     if not os.path.isabs(Output_Dir):
         raise ValueError(f"{Fore.RED}{Style.BRIGHT}Please provide absolute paths in Output_Dir.{Style.RESET_ALL}")
+    
     if not os.path.isabs(Script_Dir):
         raise ValueError(f"{Fore.RED}{Style.BRIGHT}Please provide absolute paths in Script_Dir.{Style.RESET_ALL}")
+    
     if Determine_TIB is False and Calculate_Sleep_Stats is True:
         print(f"{Fore.YELLOW}{Style.BRIGHT}Since Determine_TIB = False, sleep statistics will not be calculated within the TIB but on the entire night (unless existing {Artifact_Rejected_Scores_within_TIB_Flname} is found).{Style.RESET_ALL}")
 
@@ -218,20 +236,24 @@ def initial_checks():
 def load_usability_model():
     print(f"{Fore.GREEN}{Style.BRIGHT}Loading eegFloss models...{Style.RESET_ALL}")
     usability_model = None
+    
     if Check_Usability is True:
         usability_model_name = determine_usability_model_name()
         try:
             usability_model = load_offline_model(usability_model_name)
         except:
             usability_model = download_pkl(usability_model_name)
+        
         if usability_model is None:
             raise ImportError(f"{Fore.RED}{Style.BRIGHT}eegUsability models could not be loaded. Check internet connection.{Style.RESET_ALL}")
+        
         print(f"{Fore.GREEN}{Style.BRIGHT}eegUsability model was successfully loaded!{Style.RESET_ALL}")
     return usability_model
             
 #%%
 def load_mobility_model(key):
     mobility_model = None
+    
     if Determine_TIB is True and key == 'Zmax':
         mobility_model_name = determine_mobility_model_name()
         try:
@@ -240,12 +262,14 @@ def load_mobility_model(key):
             mobility_model = download_pkl(mobility_model_name)
         if mobility_model is None:
             raise ImportError(f"{Fore.RED}{Style.BRIGHT}eegMobility models could not be loaded. Check internet connection.{Style.RESET_ALL}")
+    
     print(f"{Fore.GREEN}{Style.BRIGHT}eegMobility model was successfully loaded!{Style.RESET_ALL}")
     return mobility_model
 
 #%%
 def determine_usability_model_name():
     global Usability_Model_Version
+    
     if eegUsability_Model in ['default', 'v1.0']:
         Usability_Model_Version = r'default (v1.0)'
         usability_model_name = 'eegUsability_model_v1.0.pkl'
@@ -315,6 +339,7 @@ def download_json(url):
 def find_nights(raw_dir):
     all_nights = []
     target_flname = EEG_Channels[0] + '.edf'
+    
     for dirpath, dirnames, filenames in os.walk(raw_dir):
         for filename in filenames:
             fname_lower = filename.lower()
@@ -324,6 +349,7 @@ def find_nights(raw_dir):
             else:
                 if fname_lower.endswith('.edf') or fname_lower.endswith('bdf'):
                     all_nights.append(os.path.join(dirpath, filename))               
+    
     all_nights = [os.path.normpath(path) for path in all_nights]
     all_nights = [os.path.dirname(path) for path in all_nights]
     print(f'{Fore.GREEN}{Style.BRIGHT}\nFound {len(all_nights)} nights in\n{Raw_Data_Dir}.{Style.RESET_ALL}')
@@ -338,6 +364,7 @@ def determine_dest_dir(src_night, num_night, total_nights):
 #%%
 def check_exists(src_night):
     dest_night = os.path.normpath(src_night.replace(Raw_Data_Dir, Output_Dir))
+    
     files = {
         'Sleep_Scores': Sleep_Scores_Flname,
         'usability_scores': Usability_Scores_Flname,
@@ -347,6 +374,7 @@ def check_exists(src_night):
         'usability_scores_within_tib': Usability_Scores_within_TIB_Flname,
         'features': Feats_flname}
     file_exists = {key: False for key in files}
+    
     for key, fname in files.items():
         if fname is not None:
             path_src = os.path.normpath(os.path.join(src_night, fname))
@@ -365,6 +393,7 @@ def check_exists(src_night):
 def check_exists_2(src_night, files):
     dest_night = os.path.normpath(src_night.replace(Raw_Data_Dir, Output_Dir))
     file_exists = {key: False for key in files}
+    
     for key, fname in files.items():
         if fname is not None:
             path_src = os.path.normpath(os.path.join(src_night, fname))
@@ -390,16 +419,19 @@ def read_data(src_night, sig_type):
     print(f"\tReading {sig_type} data...")
     signals = samp_rates = None
     channels = EEG_Channels if sig_type == 'EEG' else ACC_Channels
+    
     if All_Signals_in_One_File is False:
         signals, samp_rates = process_single_edfs(src_night, channels)
     elif All_Signals_in_One_File is True:
         signals, samp_rates = read_combined_edf(src_night, channels)
     else:
         raise ValueError(f"{Fore.RED}{Style.BRIGHT}ValueError: All_Signals_in_One_File must be True or False.{Style.RESET_ALL}")
+    
     if samp_rates is not None:
         if samp_rates[channels[0]] != 0:
             dur = len(signals[channels[0]])/samp_rates[channels[0]]
             print(f"\tRecording duration: {round(dur/60, 2)} mins.")
+    
     if signals is None:
         log_error(src_night, 1)        
         return None, None, None
@@ -422,9 +454,11 @@ def process_single_edfs(night_dir, fls_list):
                 if signal is not None:
                     return file_name, signal, fs
         return file_name, None, None
+    
     results = Parallel(n_jobs=n_cores)(delayed(read_channel_file)(ch) for ch in fls_list)
     all_channels = {}
     samp_rates = {}
+    
     for name, signal1, fs in results:
         if signal1 is None:
             return None, None
@@ -458,6 +492,7 @@ def read_combined_edf(src_night, channels):
             glob.glob(os.path.normpath(os.path.join(src_night, "*.bdf"))) + \
             glob.glob(os.path.normpath(os.path.join(src_night, "*.BDF")))
     file_path1 = sorted(set(file_path1))
+    
     if len(file_path1) == 1:
         try:
             psg_edf = pyedflib.EdfReader(file_path1[0])
@@ -548,6 +583,7 @@ def adjust_samp_rate(signals, samp_rates, final_target_rate=Target_Samp_Rate):
         interpolator = interp1d(original_time, signal, kind='cubic')
         resampled_signal = interpolator(target_time).astype(np.float32)
         return ch, resampled_signal
+    
     final_target_rate = Target_Samp_Rate
     results = Parallel(n_jobs=n_cores)(
         delayed(_resample_to_target)(ch, signal, samp_rates[ch], final_target_rate)
@@ -577,6 +613,7 @@ def make_samples(signals, samp_rate, key):
         ep_len = Usability_Epoch_Length
     elif key == 'Mobility':
         ep_len = Mobility_Epoch_Length
+    
     samples = signals.reshape(signals.shape[0], -1, ep_len * samp_rate).transpose(1, 0, 2)
     return samples
 
@@ -628,6 +665,7 @@ def extract_spectrogram_features(all_channels, samp_rate, n_cores=-1):
         delayed(_compute_spectrogram)(e, c, all_channels[e, c], samp_rate)
         for e in range(num_epochs)
         for c in range(num_channels))
+    
     for e, c, Sxx_T in results:
         spec_feats[e, c] = Sxx_T
     return spec_feats
@@ -668,13 +706,16 @@ def extract_tsfel_features(all_channels, samp_rate, key):
     stat_feats = np.zeros((num_epochs, num_channels, num_features), dtype='float32')
     # results = Parallel(n_jobs=-1)(delayed(extract_features_for_channel)(all_channels[epoch, channel, :]) for epoch in range(num_epochs) for channel in range(num_channels))
     tasks = []
+    
     for epoch in range(num_epochs):
         for channel in range(num_channels):
             epoch_channel_data = all_channels[epoch, channel, :]
             task = delayed(tsfel_per_channel)(epoch_channel_data, samp_rate)
             tasks.append(task)
+    
     results = Parallel(n_jobs=n_cores)(tasks)    
     index = 0
+    
     for epoch in range(num_epochs):
         for channel in range(num_channels):
             if results[index] is not None:
@@ -719,6 +760,7 @@ def create_samples_usability(spec_feats_eeg, stat_feats_eeg, spec_feats_acc_agg,
     spec_feats_acc_agg = spec_feats_acc_agg.reshape(spec_feats_acc_agg.shape[0], spec_feats_acc_agg.shape[1], -1)
     channels = stat_feats_eeg.shape[1]
     usa_samples = []    
+    
     for ch in range(channels):
         combined_features = np.concatenate((spec_feats_eeg[:, ch, :], 
                                             spec_feats_acc_agg[:, 0, :], 
@@ -735,6 +777,7 @@ def create_samples_usability_lite(spec_feats_eeg, spec_feats_acc_agg):
     spec_feats_acc_agg = spec_feats_acc_agg.reshape(spec_feats_acc_agg.shape[0], spec_feats_acc_agg.shape[1], -1)
     channels = spec_feats_eeg.shape[1]
     usa_samples = []
+    
     for ch in range(channels):
         combined_features = np.concatenate((spec_feats_eeg[:, ch, :], 
                                             spec_feats_acc_agg[:, 0, :]), axis=1)
@@ -793,6 +836,7 @@ def predict_usability(src_night, usa_samples, usability_model, samp_rate, key = 
     channels = usa_samples.shape[0]
     usa_pred_mat = []
     usa_pred_class = []
+    
     for ch in range(channels):
         pred_mat = usability_model.predict(usa_samples[ch, :, :])
         pred_class = np.argmax(pred_mat, axis=1)
@@ -801,6 +845,7 @@ def predict_usability(src_night, usa_samples, usability_model, samp_rate, key = 
         usa_pred_mat.append(pred_mat)
         usa_pred_class.append(pred_class)
     usability_scores = np.stack(usa_pred_class, axis=1).astype(np.int8)
+    
     if Ignore_M_Shaped_Noise is True:
         usability_scores[usability_scores == 4] = 0    
     dur = usability_scores.shape[0] * Usability_Epoch_Length / 60
@@ -810,9 +855,11 @@ def predict_usability(src_night, usa_samples, usability_model, samp_rate, key = 
         'usability_info': data_source + usability_info + [f"This file contains the prediction matrices of classifications of {usability_scores.shape[0]} samples and {EEG_Channels} channels"],
         'EEG_Channels': EEG_Channels,
         'usability_pred_mats': dict(zip(EEG_Channels, usa_pred_mat))}
+    
     if Usability_Scores_Flname is not None:
         save_usability_scores(src_night, usability_scores, samp_rate, key)
     usable_percent = (usability_scores == 0).sum() / usability_scores.size * 100
+    
     if usable_percent < 80:
        print(f"{Fore.YELLOW}{Style.BRIGHT}\tDetected usable data: {round(usable_percent, 2)}%.{Style.RESET_ALL}")
     elif usable_percent < 50:  
@@ -824,26 +871,31 @@ def predict_usability(src_night, usa_samples, usability_model, samp_rate, key = 
 #%%
 def save_usability_scores(src_night, usability_scores, samp_rate, key):
     dest_night = os.path.normpath(src_night.replace(Raw_Data_Dir, Output_Dir))
+    
     if key is None:
         file_path = os.path.normpath(os.path.join(dest_night, Usability_Scores_Flname))
     elif key == 'post_filter':
         flname, ext = os.path.splitext(Usability_Scores_Flname)
         file_path = os.path.normpath(os.path.join(dest_night, f"{flname}_after_spiky_noise_filtering{ext}"))
     usability_scores = usability_scores.astype(np.int8)
+    
     if Add_Index_in_Outputs == 'timestamp':
         start_end = get_epoch_timestamp(usability_scores.shape[0], samp_rate, Usability_Epoch_Length)
     elif Add_Index_in_Outputs == 'data_index':
         start_end = get_epoch_data_indices(usability_scores.shape[0], samp_rate, Usability_Epoch_Length)
     else:
         start_end = None
+    
     dur = usability_scores.shape[0] * Usability_Epoch_Length / 60
     data_source = [f"Data source: '{src_night}'.", f"EEG signals' sampling rate: {samp_rate} Hz and (checked) duration: {round(dur, 2)} minutes."]
     usability_info = [f"EEG data usability was assessed by eegFloss v1.0 (GitHub.com/Niloy333/eegFloss)", f"using eegUsability model: '{Usability_Model_Version}' in {Usability_Epoch_Length}-second epochs at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.", f"Class labels: 0 = Good Data; 1 = No Data; 2 = High Noise; 3 = Spiky Noise; 4 = M-shaped Noise."]
     channels = f"[{'; '.join(EEG_Channels)}]"
+    
     if key is None:
         file_header = data_source + usability_info + [f"This file contains the usability scores of {usability_scores.shape[0]} samples and {channels} channels."] + line_divider
     elif key == 'post_filter':
         file_header = data_source + usability_info + [f"This file contains the usability scores of {usability_scores.shape[0]} samples and {channels} channels after spiky noise filtering."] + line_divider
+    
     write_scores_csv(file_path, file_header, usability_scores, start_end, EEG_Channels, 'Usability')
 
 #%%
@@ -852,12 +904,14 @@ def write_scores_csv(file_path, file_header, scores, start_end, channels, key):
         for line in file_header:
             f.write(f"# {line}\n")
         writer = csv.writer(f)
+        
         if Add_Index_in_Outputs == 'timestamp':
             writer.writerow(channels + ["Start_time_sec", "End_time_sec"])
         elif Add_Index_in_Outputs == 'data_index':
             writer.writerow(channels + ["Start_data_index", "End_data_index"])
         else:
             writer.writerow(EEG_Channels)
+        
         for i in range(scores.shape[0]):
             if Add_Index_in_Outputs in ['timestamp', 'data_index']:
                 if key == 'Usability':
@@ -899,6 +953,7 @@ def read_scores(file_path):
     else:
         scores = df.astype(np.int8)
         start_end_info = None
+    
     comments = []
     with open(file_path, 'r') as f:
         for line in f:
@@ -936,13 +991,16 @@ def check_sleep_scores_validity(scores, src_night, data_dur, usa_scores_len):
             log_error(src_night, 5)
             return None
     scaling_factor = int(Sleep_Scores_Epoch_Length / Usability_Epoch_Length)
+    
     if usa_scores_len is not None:
         if len(scores) != int(usa_scores_len / scaling_factor):
             log_error(src_night, 7)
             return None
+    
     if not np.all((scores >= 0) & (scores <= 5)):
         log_error(src_night, 6)
         return None
+    
     if (np.any(scores == 5) and np.any(scores == 4)):
         print(f"{Fore.YELLOW}{Style.BRIGHT}\tSleep scores contain labels '4' and '5', both of which usually refer to REM. '5' to be re-labeled to '4'.{Style.RESET_ALL}")
         scores[scores == 5] = 4
@@ -952,6 +1010,7 @@ def check_sleep_scores_validity(scores, src_night, data_dur, usa_scores_len):
 # @autocopy_args
 def aggregate_scores(dest_night, sleep_scores, usa_scores, samp_rate):
     src_night = os.path.normpath(dest_night.replace(Output_Dir, Raw_Data_Dir))
+    
     if samp_rate is None:
         dur, samp_rate = fetch_samp_rate(src_night, 'EEG')
     print("\tAggregating sleep and usability scores...")
@@ -961,6 +1020,7 @@ def aggregate_scores(dest_night, sleep_scores, usa_scores, samp_rate):
     agg_usa = np.zeros(usa_scores.shape[0], dtype = np.int8)
     agg_usa[np.mean(usa_scores, axis=1) > 0.5] = 1
     agg_usa_2 = np.zeros(int(len(agg_usa) / scaling_factor), dtype=np.int8)
+    
     if len(agg_usa_2) != len(sleep_scores):
         log_error(src_night, 7)
         return None
@@ -968,7 +1028,9 @@ def aggregate_scores(dest_night, sleep_scores, usa_scores, samp_rate):
         segment = agg_usa[i * scaling_factor : (i + 1) * scaling_factor]
         if np.mean(segment) > 0.5:
             agg_usa_2[i] = 1
+    
     agg_scores = np.where(agg_usa_2 == 1, Unusable_Label, sleep_scores).astype(np.int8)
+    
     if Artifact_Rejected_Scores_Flname is not None:
         save_art_rej_sleep_scores(src_night, agg_scores, samp_rate)
     return agg_scores
@@ -977,12 +1039,14 @@ def aggregate_scores(dest_night, sleep_scores, usa_scores, samp_rate):
 def save_art_rej_sleep_scores(src_night, agg_scores, samp_rate):
     dest_night = os.path.normpath(src_night.replace(Raw_Data_Dir, Output_Dir))
     file_path = os.path.normpath(os.path.join(dest_night, Artifact_Rejected_Scores_Flname))
+    
     if Add_Index_in_Outputs == 'timestamp':
         start_end = get_epoch_timestamp(agg_scores.shape[0], samp_rate, Sleep_Scores_Epoch_Length)
     elif Add_Index_in_Outputs == 'data_index':
         start_end = get_epoch_data_indices(agg_scores.shape[0], samp_rate, Sleep_Scores_Epoch_Length)
     else:
         start_end = None
+    
     dur = agg_scores.shape[0] * Sleep_Scores_Epoch_Length / 60
     data_source = [f"Data source: '{src_night}'.", f"EEG signals' sampling rate: {samp_rate} Hz and (checked) duration: {round(dur, 2)} minutes."]
     arss_info = [f"EEG data usability was assessed by eegFloss v1.0 (GitHub.com/Niloy333/eegFloss)", f"using eegUsability model: '{Usability_Model_Version}' in {Usability_Epoch_Length}-second epochs at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.", f"Sleep scores were imported from '{Sleep_Scores_Flname}'; scoring was performed in {Sleep_Scores_Epoch_Length}-second epochs.", f"This file contains aggregated sleep and usability scores based on the majority rule.", f"Class labels: {Unusable_Label} = Unusable Data; 0-4 = W; N1; N2; N3; REM; 9 = placeholder; (or check '{Sleep_Scores_Flname}')."]
@@ -1014,8 +1078,10 @@ def extract_pow_feats(samples, samp_rate):
         delayed(_compute_psd)(i, j, samples[i, j], samp_rate)
         for i in range(n_samples)
         for j in range(n_channels))
+    
     for i, j, psd in results:
         pow_feats[i, j, :] = psd
+    
     pow_feats_flat = pow_feats.reshape(n_samples, -1)
     return pow_feats_flat.astype(np.float32)
 
@@ -1038,6 +1104,7 @@ def predict_mobility(src_night, mob_samples, mobility_model, samp_rate, pred_mat
     dur = mob_pred_class.shape[0] * Mobility_Epoch_Length / 60
     mobility_info = [f"Degree of movement was assessed by eegFloss v1.0 (GitHub.com/Niloy333/eegFloss)", f"using eegMobility model: '{eegMobility_Model}' in {Mobility_Epoch_Length}-second epochs at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.", f"Class labels: 0 = Idle; 1 = Laying; 2 = Stationary; 3 = Mobile."]
     data_source = [f"Data source: '{src_night}'", f"ACC signals' sampling rate: {samp_rate} Hz and (checked) duration: {round(dur, 2)} minutes."]
+    
     if pred_mat_data is None:
         pred_mat_data = {}
     pred_mat_data['mobility_info'] = data_source + mobility_info + [f"This file contains the prediction matrices of classifications of {mob_pred_class.shape[0]} samples from combined {ACC_Channels} channels."]
@@ -1060,21 +1127,25 @@ def determine_lights_out_on(mob_scores, dest_night, samp_rate):
     lights_on = {}
     laying_label = 1
     count = 0
+    
     for i, v in enumerate(mob_scores):
         count = count + 1 if v == laying_label else 0
         if count == lay_th:
             lights_out_ep = i - lay_th + 1
             break
+    
     count = 0
     for i in range(len(mob_scores) - 1, -1, -1):
         count = count + 1 if mob_scores[i] == laying_label else 0
         if count == lay_th:
             lights_on_ep = i + lay_th - 1
             break
+    
     if lights_out_ep is None or lights_on_ep is None or lights_out_ep == lights_on_ep:
         src_night = os.path.normpath(dest_night.replace(Output_Dir, Raw_Data_Dir))
         log_error(src_night, 9)
         return None, None   
+    
     lights_on_ep = lights_on_ep + 1
     lights_out['ep'] = int(lights_out_ep)
     lights_out['sec'] = int(lights_out['ep'] * Mobility_Epoch_Length)
@@ -1082,6 +1153,7 @@ def determine_lights_out_on(mob_scores, dest_night, samp_rate):
     lights_on['ep'] = int(lights_on_ep)
     lights_on['sec'] = int(lights_on['ep'] * Mobility_Epoch_Length)
     lights_on['idx'] = int(lights_on['sec'] * samp_rate)    
+    
     if Lights_Out_On_Flname is not None:
         save_lights_out_on(dest_night, lights_out, lights_on, samp_rate)
     TIB_min = (lights_on['sec'] - lights_out['sec']) / 60
@@ -1091,12 +1163,14 @@ def determine_lights_out_on(mob_scores, dest_night, samp_rate):
 #%%        
 def save_lights_out_on(dest_night, lights_out, lights_on, samp_rate):
     src_night = os.path.normpath(dest_night.replace(Output_Dir, Raw_Data_Dir))
+    
     if samp_rate is None:
         dur, samp_rate = fetch_samp_rate(src_night, 'ACC')
     file_path = os.path.normpath(os.path.join(dest_night, Lights_Out_On_Flname))
     data_source = [f"Data source: '{src_night}'.", f"ACC signals' sampling rate: {samp_rate} Hz"]
     mobility_info = [f"Degree of movement was assessed by eegFloss v1.0 (GitHub.com/Niloy333/eegFloss)", f"using eegMobility model: '{eegMobility_Model}' in {Mobility_Epoch_Length}-second epochs at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}."]
     file_header = data_source + mobility_info + [f"Lights Out and Lights On moments were determined from mobility scores. Min_Laying_Time_for_TIB = {Min_Laying_Time_for_TIB} minutes.", "The provided indexes are suitable for Python-style indexing.","E.g.: TIB_data = data[lights_out_index : lights_on_index]."] + line_divider
+    
     with open(file_path, mode='w', newline='') as f:
         for line in file_header:
             f.write(f"# {line}\n")
@@ -1108,15 +1182,18 @@ def save_lights_out_on(dest_night, lights_out, lights_on, samp_rate):
 #%%
 def save_scores_within_TIB(src_night, file_exists, usability_scores, agg_scores, lights_out_ep, lights_on_ep, samp_rate, dur):
     dest_night = os.path.normpath(src_night.replace(Raw_Data_Dir, Output_Dir))
+    
     if samp_rate is None or dur is None:
         dur, samp_rate = fetch_samp_rate(src_night, 'ACC')
     else:
         dur = dur/60
+    
     agg_scores_tib = usability_scores_tib = None
     data_source = [f"Data source: '{src_night}'", f"EEG signals' sampling rate: {samp_rate} Hz and (checked) duration: {round(dur, 2)} minutes."]
     arss_info = [f"EEG data usability was assessed by eegFloss v1.0 (GitHub.com/Niloy333/eegFloss)", f"using eegUsability model: '{Usability_Model_Version}' in {Usability_Epoch_Length}-second epochs at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.", f"Sleep scores were imported from '{Sleep_Scores_Flname}'; scoring was performed in {Sleep_Scores_Epoch_Length}-second epochs."]
     usability_info = [f"EEG data usability was assessed by eegFloss v1.0 (GitHub.com/Niloy333/eegFloss)", f"using eegUsability model: '{Usability_Model_Version}' in {Usability_Epoch_Length}-second epochs at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}."]
     mobility_info = [f"Degree of movement was assessed using eegMobility model: '{eegMobility_Model}' in {Mobility_Epoch_Length}-second epochs at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}."]
+    
     if Artifact_Rejected_Scores_within_TIB_Flname is not None:
         if agg_scores is None and file_exists['artifact_rejected_scores']:
             agg_scores_df, _, _ = read_scores(file_exists['artifact_rejected_scores'])
@@ -1142,6 +1219,7 @@ def save_scores_within_TIB(src_night, file_exists, usability_scores, agg_scores,
                 file_path = os.path.normpath(os.path.join(dest_night, Artifact_Rejected_Scores_within_TIB_Flname))
                 channels = ['Sleep_scores']
                 write_scores_csv(file_path, file_header, agg_scores_tib, start_end, channels, 'Sleep')
+    
     if Usability_Scores_within_TIB_Flname is not None:
         if usability_scores is None and file_exists['usability_scores']:
             usability_scores_df, _, _ = read_scores(file_exists['usability_scores'])
@@ -1170,10 +1248,12 @@ def save_scores_within_TIB(src_night, file_exists, usability_scores, agg_scores,
 #%%
 def fetch_samp_rate(src_night, key):
     ch = ACC_Channels[0] if key == 'ACC' else EEG_Channels[0]
+    
     if All_Signals_in_One_File is False:
         signal, samp_rate = process_single_edfs(src_night, [ch])
     elif All_Signals_in_One_File is True:
         signal, samp_rate = read_combined_edf(src_night, [ch])
+    
     signal = signal[ch]
     samp_rate = samp_rate[ch]
     dur = len(signal)/samp_rate/60
@@ -1188,6 +1268,7 @@ def calculate_n_save_stats(src_night, file_exists, sleep_scores, agg_scores, lig
         best_sleep_scores = None
         header_df = pd.DataFrame()
         header_df['Data_source'] = [src_night]
+        
         if agg_scores is not None:
             best_sleep_scores = agg_scores
             header_df['Sleep_score_source'] = [Artifact_Rejected_Scores_Flname]           
@@ -1203,6 +1284,7 @@ def calculate_n_save_stats(src_night, file_exists, sleep_scores, agg_scores, lig
                 else:
                     best_sleep_scores = read_sleep_scores(src_night, file_exists['Sleep_Scores'], None, None)
                     header_df['Sleep_score_source'] = [Sleep_Scores_Flname]   
+        
         if best_sleep_scores is None:
             log_error(src_night, 10)
             return False
@@ -1297,15 +1379,19 @@ def calculate_n_save_stats(src_night, file_exists, sleep_scores, agg_scores, lig
 #%%        
 def get_sleep_stats(src_night, sleep_scores, lights_out_ep, lights_on_ep):
     sleep_scores = sleep_scores.copy()
+    
     def stage_latency(stage_val):
         mask = (sleep_scores == stage_val)
         duration = np.argmax(mask) * epoch_to_min if mask.any() else 'Unidentified'
         return duration
+    
     def pct(n, d):
         return round(n / d * 100, 2) if d > 0 else 'Unidentified'
+    
     epoch_to_min = Sleep_Scores_Epoch_Length / 60
     stats_df = pd.DataFrame()
     stats_df['Scores_duration_min'] = [len(sleep_scores) * epoch_to_min]
+    
     if lights_out_ep is None or lights_on_ep is None or lights_out_ep == lights_on_ep:
         print(f"{Fore.YELLOW}{Style.BRIGHT}\t\twithout TIB...{Style.RESET_ALL}")
         stats_df['Lights_out_sec'] = ['Undetected']
@@ -1320,10 +1406,12 @@ def get_sleep_stats(src_night, sleep_scores, lights_out_ep, lights_on_ep):
         stats_df['Lights_on_sec'] = [int(lights_on_ep * Mobility_Epoch_Length)]
         stats_df['TIB_min'] = [len(sleep_scores) * epoch_to_min]
     stats_df['Scorable_%'] = [pct(np.count_nonzero(sleep_scores != Unusable_Label), len(sleep_scores))]
+    
     if stats_df['TIB_min'].item() <= 1:
         log_error(src_night, 11)
         return None
     sleep_eps = np.sum(sleep_scores <= 0)
+    
     if sleep_eps == 0:
         print("\t\t{Fore.YELLOW}{Style.BRIGHT}\t\tno sleep was detected...{Style.RESET_ALL}")
         for stage in ['SPT min', 'TST min', 'N1 min', 'N2 min', 'N3 min', 'REM min', 'NREM min']:
@@ -1355,6 +1443,7 @@ def get_sleep_stats(src_night, sleep_scores, lights_out_ep, lights_on_ep):
 #%%
 def format_time_axis_signal(ax, time_vector):
     duration_secs = time_vector[-1]    
+    
     if duration_secs < 3600:
         ax.xaxis.set_major_locator(MultipleLocator(600))  # every 10 min
         def mm_ss_formatter(x, pos):
@@ -1376,6 +1465,7 @@ def format_time_axis_signal(ax, time_vector):
 #%%
 def format_time_from_index(ax, total_epochs, epoch_len):
     total_seconds = total_epochs * epoch_len
+    
     if total_seconds < 3600:
         ax.xaxis.set_major_locator(MultipleLocator(600 / epoch_len))  # every 10 min
         def mm_ss_formatter(x, pos):
@@ -1456,6 +1546,7 @@ def plot_usability_graph(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_sam
         return None
     print("\tPlotting usability graph...")
     dest_night = os.path.normpath(src_night.replace(Raw_Data_Dir, Output_Dir))
+    
     if key is None:
         file_path = os.path.normpath(os.path.join(dest_night, Usability_Graph_Flname))
     elif key == 'post_filter':
@@ -1711,14 +1802,17 @@ def get_spiky_epochs(usa_scores, samples_eeg):
     epochs, channels = usa_scores.shape
     spiky_indices = []
     print("\tFound Spiky Noise in")
+    
     for ch in range(channels):
         spike_rows = np.where(usa_scores[:, ch] == 3)[0]
         for epoch in spike_rows:
             spiky_indices.append([ch, epoch])
         print(f"\t\t{len(spike_rows)} epochs of {EEG_Channels[ch]}")
+    
     spiky_ep_indx = np.array(spiky_indices, dtype=int)    
     epochs, dtpoints = spiky_ep_indx.shape[0], samples_eeg.shape[2]
     spiky_data = np.zeros((epochs, dtpoints))    
+   
     for e in range(epochs):
         ch, ep = spiky_ep_indx[e, :]
         spiky_data[e, :] = samples_eeg[ep, ch, :]
@@ -1728,10 +1822,12 @@ def get_spiky_epochs(usa_scores, samples_eeg):
 def save_filtered_signals(src_night, samples_eeg, spiky_ep_indx, filtered_data):
     samples_eeg_filtered = np.copy(samples_eeg)
     channels = samples_eeg.shape[1]
+    
     for i in range(spiky_ep_indx.shape[0]):
         ch, ep = spiky_ep_indx[i]
         samples_eeg_filtered[ep, ch, :] = filtered_data[i, :]
     eeg_signals_filtered = samples_eeg_filtered.transpose(1, 0, 2).reshape(channels, -1)
+    
     if All_Signals_in_One_File is True:
         save_single_edf(src_night, eeg_signals_filtered)
     else:
@@ -1754,6 +1850,7 @@ def save_single_edf(src_night, eeg_signals):
     file_header = edf_reader.getHeader()
     n_channels = edf_reader.signals_in_file
     updated_signals = []
+    
     for i, label in enumerate(channel_labels):
         src_signal = edf_reader.readSignal(i)
         updated_signal = np.array(src_signal)
@@ -1767,6 +1864,7 @@ def save_single_edf(src_night, eeg_signals):
         signal_headers[i]['n_samples'] = len(updated_signal)
         updated_signals.append(updated_signal)
         del updated_signal
+    
     edf_reader.close()
     writer = pyedflib.EdfWriter(dest_path, n_channels=n_channels, file_type=pyedflib.FILETYPE_EDF)
     writer.setHeader(file_header)
@@ -1781,6 +1879,7 @@ def save_multiple_edfs(src_night, eeg_signals):
     dest_night = os.path.normpath(os.path.join(dest_night, 'spiky_noise_filtered_signals'))
     os.makedirs(dest_night, exist_ok=True)
     print(f"\tSaving filtered signals to: {dest_night}")
+    
     for i, ch in enumerate(EEG_Channels):
         for ext in [".edf", ".EDF"]:
             file_path = os.path.normpath(os.path.join(src_night, f"{ch}{ext}"))
@@ -1808,10 +1907,12 @@ def create_filtered_usa_samples(spiky_ep_indx, filtered_data, spec_feats_eeg, st
     filtered_data = filtered_data[:, np.newaxis, :]
     spec_feats_f = extract_spectrogram_features(filtered_data, eeg_samp_rate)
     stat_feats_f = extract_tsfel_features(filtered_data, eeg_samp_rate, 'filtered')    
+    
     for i in range(spiky_ep_indx.shape[0]):
         ch, ep = spiky_ep_indx[i]
         spec_feats_eeg[ep, ch, :, :] = spec_feats_f[i, :, :, :]
         stat_feats_eeg[ep, ch, :] = stat_feats_f[i, :, :]
+    
     usa_samples = create_samples_usability(spec_feats_eeg, stat_feats_eeg, spec_feats_acc_agg, stat_feats_acc_agg)
     return usa_samples
 
@@ -1835,6 +1936,7 @@ def log_error(night_dir, k, error_details=None):
 #%%
 def print_report(out_dir, N):
     print(f"{Fore.CYAN}{Style.BRIGHT}\nExecution Finished!\n{N - len(Error_Nights)} {Device_Name} recordings(s) were successfully processed.")
+    
     if Error_Nights.empty is False:
         error_report_path = out_dir + "//" + "eegFloss_error_nights.csv"
         Error_Nights.to_csv(error_report_path, index=False)
