@@ -108,7 +108,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 
 ## Primary Artifacts
 eegUsability detects the following artifacts in raw sleep EEG data:
-<img src="https://hochschule-rhein-waal.sciebo.de/s/khVYFd3BbPnBCQS/download" alt="primary_artifacts" width="600">
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/noise_classes_port.png" alt="primary_artifacts" width="600">
 
 >Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
 
@@ -129,12 +129,12 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 ## Sample Outputs
 
 ### Usability Graph
-<img src="https://hochschule-rhein-waal.sciebo.de/s/bMBS3aZRtYs87KH/download" alt="usability_graph_zmax" width="1000">
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/usability_graph.png" alt="usability_graph_zmax" width="1000">
 
 >Figure 2: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
  
 ### Hypnogram
-<img src="https://hochschule-rhein-waal.sciebo.de/s/iiqmySRH7bHFg8R/download" alt="hypnogram_zmax" width="1000">
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/hypnogram_with_usability.png" alt="hypnogram_zmax" width="1000">
 
 >Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
