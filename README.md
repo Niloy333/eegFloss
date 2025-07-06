@@ -1,7 +1,5 @@
 <!--   [![DOI](https://zenodo.org/badge/925334641.svg)](https://doi.org/10.5281/zenodo.xxxxx) -->
 
-**The scripts will be added soon**
-
 # *eegFloss*: A Python Package to *Floss Out* Artifacts from Sleep EEG Recordings
 
 **Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read Before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people)
@@ -11,9 +9,9 @@ EEG data often contains artifacts caused by both internal factors (such as devic
 
 Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
 
-**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax headband. However, it can also be applied to sleep EEG data from other devices to detect common artifacts and assess data usability.
+**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax headband. However, it can also be applied to sleep EEG data from other devices to detect common artifacts and assess the usability of the data.
 
-The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper]().
+The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper](#reference-paper).
 
 ## Installation
 It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda environment. Follow these steps:
@@ -49,7 +47,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 
 ### `2.eegFloss_spiky_noise_filter.py`
 - Identifies the presence of Spiky artifacts in EEG recordings.
-- If detected, applies a custom filter to remove the artifact.
+- If detected, it applies a custom filter to remove the artifact.
 - Saves the cleaned data to a new file (which can then be sleep-scored).
 
 ### `3.eegFloss_file_cleanup.py`
@@ -58,6 +56,9 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 ### `eegFloss_functions.py`
 - Contains all imports and helper functions required by the main scripts.
 - Modify this file only if you need to customize core functionalities.
+
+### `read_outputs_in_Matlab.m`
+- Shows how to read various eegFloss output files in MATLAB.
 
 **Please read the comments in the input-output cells of each script carefully before running the script.**
 
@@ -70,7 +71,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - If not, you can manually convert data using Python libraries such as [PyEDFlib](https://pyedflib.readthedocs.io/en/latest/) or [MNE](https://github.com/mne-tools/mne-python).
 
 ### Sleep-Stage Scoring
-- eegFloss **does not** include a built-in automatic sleep-stage scorer and cannot infer sleep stages from EEG or other signals.
+- eegFloss **does not include** a built-in automatic sleep-stage scorer and cannot infer sleep stages from EEG or other signals.
 - However, if you provide sleep scores alongside your data, it can generate artifact-rejected sleep scores by combining the provided sleep scores and the detected data usability.
 - If your data is not manually scored, consider using open-source automatic sleep scorers such as [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), or [Dreamento](https://github.com/dreamento/dreamento) (only for Zmax data).
 
@@ -90,7 +91,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 ### TIB Detection and Accelerometer Requirements
 - Automatic TIB detection using the eegMobility model is validated only for Zmax data.
 - If you want to test it for another device, ensure that the tri-axial accelerometer data is measured in units of g, falls within a range of ±2g (clip extreme values if needed), and includes gravitational acceleration (meaning the normalized data should center around 1g).
-- Analyzing EEG data without accompanying accelerometer signals may lead to the removal of some arousals due to lack of motion information.
+- Analyzing EEG data without accompanying accelerometer signals may lead to the removal of some arousals due to a lack of motion information.
 
 ### Miscellaneous
 - For non-Zmax devices, verify that sampling rates are correct. If initial results are suboptimal, consider applying normalization techniques.
@@ -137,18 +138,22 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 
 >Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
-**See `sample_data\Zmax\output` for more sample outputs.**
+**The `sample_output` folder contains a sample of all output files.**
 
 ## Reference Paper
 More information on this package and the underlying models can be found in:
 
 Sikder, N., Zerr, P., Dresler, M., & Krauledat, M., *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (submitted).
 
+For now, you can see a [preprint version](TBA).
+
 ## Cite
 If you find this package helpful and use it in your work, please cite the reference paper as:
+
 TBA
 
 And cite the package as:
+
 TBA
 
 
