@@ -1,0 +1,10 @@
+# Data source: 'C:\Sciebo_files\eegFloss_v1.0\0.eegFloss_v1.0_beta\sample_data\Zmax\sub01'.
+# ACC signals' sampling rate: 256 Hz
+# Degree of movement was assessed by eegFloss v1.0 (GitHub.com/Niloy333/eegFloss)
+# using eegMobility model: 'default' in 10-second epochs at 2025-07-06 15:52:19.
+# Lights Out and Lights On moments were determined from mobility scores. Min_Laying_Time_for_TIB = 2 minutes.
+# The provided indexes are suitable for Python-style indexing.
+# E.g.: TIB_data = data[lights_out_index : lights_on_index].
+# <<<e>>><<<n>>><<<d>>><<<o>>><<<f>>><<<h>>><<<e>>><<<a>>><<<d>>><<<e>>><<<r>>>
+Lights_out_epoch,Lights_on_epoch,Lights_out_second,Lights_on_second,Lights_out_data_index,Lights_on_data_index
+17,2889,170,28890,43520,7395840
