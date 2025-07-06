@@ -68,12 +68,12 @@ with open(r'eegFloss_functions.py', 'r') as file:
     eegFloss_functions = file.read()
 exec(eegFloss_functions)            # Execute loaded functions into memory
 declare_globals()                   # Set global variables and constants
-initial_checks()                    # Verify all inputs, folders, dependencies
+# initial_checks()                    # Verify all inputs, folders, dependencies
 usability_model = load_usability_model()
 
 #%% Listing nights for processing:
 
-all_nights = find_nights()
+all_nights = find_nights(Raw_Data_Dir)
 total_nights = len(all_nights)
 num_done_nights = 0
 
@@ -85,7 +85,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
     ## num_night, src_night = 1, all_nights[0]
     
     # Initializing important variables:
-    dest_night = initialize_night(src_night, num_night, total_nights)
+    dest_night = determine_dest_dir(src_night, num_night, total_nights)
     eeg_signals = eeg_samp_rates = eeg_samp_rate = org_dur = spec_feats_eeg = acc_signals = acc_samp_rates = acc_samp_rate = acc_agg = samples_acc_agg = spec_feats_acc_agg = usa_samples = usability_scores = pred_mat_data = usability_scores_df = spiky_ep_indx = spiky_data = filtered_data = eeg_signals_filtered = filtered_usa_samples = usability_scores_new = None
     stat_feats_eeg = stat_feats_acc_agg = np.nan
 
