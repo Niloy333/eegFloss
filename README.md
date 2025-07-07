@@ -146,7 +146,7 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 ## Reference Paper
 More information on this package and the underlying models can be found in:
 
-N. Sikder, P. Zerr, M. Dresler, & M. Krauledat, *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (submitted). [preprint](TBA)
+N. Sikder, P. Zerr, M. Dresler, & M. Krauledat, *eegFloss: A Python package for refining sleep EEG recordings with machine learning models* (submitted) [preprint](TBA) (TBA).
 
 ## Cite
 If you find this package helpful and use it in your work, please cite the reference paper as:
@@ -166,4 +166,4 @@ And cite the package as:
 
 **This package is provided *as is*, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.**
 
-For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@hochschule-rhein-waal.de)
+For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@hochschule-rhein-waal.de).
