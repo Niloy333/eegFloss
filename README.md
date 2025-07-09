@@ -48,6 +48,11 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - Computes common sleep statistics based on the artifact-rejected sleep scores and TIB.
 - Generates visualizations such as *usability graphs* (shows channel-wise data usability) and *hypnograms* (shows the overall outcomes) to better illustrate the models' outputs.
 
+Here is a streamlined overview of the script’s internal workflow:
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/package_workflow.png" alt="script workflow" width="600">
+
+>Figure 1: A simplified workflow of 1.eegFloss_check_usability_mobility.py.
+
 ### `2.eegFloss_spiky_noise_filter.py`
 - Identifies the presence of Spiky artifacts in EEG recordings.
 - If detected, it applies a custom filter to remove the artifact.
@@ -113,7 +118,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 eegUsability detects the following artifacts in raw sleep EEG data:
 <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/noise_classes_port.png" alt="primary_artifacts" width="600">
 
->Figure 1: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
+>Figure 2: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
 
 ## eegUsability Models
 
@@ -134,12 +139,12 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 ### Usability Graph
 <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/usability_graph.png" alt="usability_graph_zmax" width="1000">
 
->Figure 2: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
+>Figure 3: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
  
 ### Hypnogram
 <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/hypnogram_with_usability.png" alt="hypnogram_zmax" width="1000">
 
->Figure 3: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
+>Figure 4: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
 **The `sample_output` folder contains a sample of all output files.**
 
