@@ -102,6 +102,7 @@ Here is a streamlined overview of the script’s internal workflow:
 - Analyzing EEG data without accompanying accelerometer signals may lead to the removal of some arousals due to a lack of motion information.
 
 ### Miscellaneous
+- Make sure your device is connected to the internet before executing the scripts.
 - For non-Zmax devices, verify that sampling rates are correct. If initial results are suboptimal, consider applying normalization techniques.
 - Thoroughly read and **update all the fields** in the input-output cells according to your dataset and desired outputs before running the script.
 - The package has been tested on Windows 10 and 11, Ubuntu 24.04.2, and macOS Sequoia 15.3.1 (MacBook Air, 2018).
