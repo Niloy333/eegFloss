@@ -49,7 +49,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - Generates visualizations such as *usability graphs* (shows channel-wise data usability) and *hypnograms* (shows the overall outcomes) to better illustrate the models' outputs.
 
 Here is a streamlined overview of the script’s internal workflow:
-<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/package_workflow.png" alt="script workflow" width="750">
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/package_workflow.png" alt="script workflow" width="600">
 
 >Figure 1: A simplified workflow of 1.eegFloss_check_usability_mobility.py.
 
