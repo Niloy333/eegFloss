@@ -157,12 +157,15 @@ Sikder, N., Zerr, P., Jafarzadeh Esfahani, M., Dresler, M., & Krauledat, M. (202
 ## Cite
 If you find this package helpful and use it in your work, please cite the reference paper as:
 
-@article{sikder2025eegfloss,<br>
-  title={eegFloss: A Python package for refining sleep EEG recordings using machine learning models},<br>  
-  author={Sikder, Niloy and Zerr, Paul and Jafarzadeh Esfahani, Mahdad and Dresler, Martin and Krauledat, Matthias},<br>  
-  journal={arXiv preprint arXiv:2507.06433},<br>  
-  year={2025}<br>  
+```bibtex
+@article{sikder2025eegfloss,
+  title     = {eegFloss: A Python package for refining sleep EEG recordings using machine learning models},
+  author    = {Sikder, Niloy and Zerr, Paul and Jafarzadeh Esfahani, Mahdad and Dresler, Martin and Krauledat, Matthias},
+  journal   = {arXiv preprint arXiv:2507.06433},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2507.06433},
 }
+```
 
 And cite the package as:
 
