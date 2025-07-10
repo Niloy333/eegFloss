@@ -152,16 +152,21 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 ## Reference Paper
 More information on this package and the underlying models can be found in:
 
-N. Sikder, P. Zerr, M. Jafarzadeh Esfahani, M. Dresler, & M. Krauledat, *eegFloss: A Python package for refining sleep EEG recordings using machine learning models* (submitted) [preprint](https://drive.google.com/file/d/1f2e4FX_YTWS9LsrZ4f8c4BWr6m2Q0pru/view?usp=sharing).
+Sikder, N., Zerr, P., Jafarzadeh Esfahani, M., Dresler, M., & Krauledat, M. (2025). eegFloss: A Python package for refining sleep EEG recordings using machine learning models. arXiv. https://doi.org/10.48550/arXiv.2507.06433. [Read preprint](https://arxiv.org/abs/2507.06433)
 
 ## Cite
 If you find this package helpful and use it in your work, please cite the reference paper as:
 
-TBA
+@article{sikder2025eegfloss,
+  title={eegFloss: A Python package for refining sleep EEG recordings using machine learning models},
+  author={Sikder, Niloy and Zerr, Paul and Jafarzadeh Esfahani, Mahdad and Dresler, Martin and Krauledat, Matthias},
+  journal={arXiv preprint arXiv:2507.06433},
+  year={2025}
+}
 
 And cite the package as:
 
-[IEEE] Niloy Sikder, Niloy333/eegFloss: eegFloss v1.0. Zenodo, 2025. doi: 10.5281/zenodo.15823969
+Niloy Sikder. (2025). Niloy333/eegFloss: eegFloss v1.0. Zenodo. https://doi.org/10.5281/ZENODO.15823969
 
 ## People
 © [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, & [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>   
