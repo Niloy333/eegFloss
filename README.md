@@ -169,7 +169,16 @@ If you find this package helpful and use it in your work, please cite the refere
 
 And cite the package as:
 
-Niloy Sikder. (2025). Niloy333/eegFloss: eegFloss v1.0. Zenodo. https://doi.org/10.5281/ZENODO.15823969
+```bibtex
+@software{sikder2025eegflossv1,
+  author    = {Niloy Sikder},
+  title     = {eegFloss},
+  year      = {2025},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.15823969},
+  url       = {https://doi.org/10.5281/zenodo.15823969},
+}
+```
 
 ## People
 © [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, & [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>   
