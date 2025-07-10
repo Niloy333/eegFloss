@@ -172,7 +172,7 @@ And cite the package as:
 ```bibtex
 @software{sikder2025eegflossv1,
   author    = {Niloy Sikder},
-  title     = {eegFloss},
+  title     = {{eegFloss v1.0}},
   year      = {2025},
   publisher = {Zenodo},
   doi       = {10.5281/zenodo.15823969},
