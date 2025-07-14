@@ -3,7 +3,9 @@
 ![Repo size](https://img.shields.io/github/repo-size/Niloy333/eegFloss)
 ![Last commit](https://img.shields.io/github/last-commit/Niloy333/eegFloss)
 
-# *eegFloss*: _A Python Package to Floss out Artifacts from Sleep EEG Recordings_
+# *eegFloss*
+
+A Python Package to Floss out Artifacts from Sleep EEG Recordings
 
 **Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read Before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people)
 
