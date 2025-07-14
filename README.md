@@ -167,6 +167,7 @@ If you find this package helpful and use it in your work, please cite the refere
   author    = {Sikder, Niloy and Zerr, Paul and Jafarzadeh Esfahani, Mahdad and Dresler, Martin and Krauledat, Matthias},
   journal   = {arXiv preprint arXiv:2507.06433},
   year      = {2025},
+  doi       = {10.48550/arXiv.2507.06433},
   url       = {https://arxiv.org/abs/2507.06433},
 }
 ```
