@@ -1938,7 +1938,7 @@ def print_report(out_dir, N):
     print(f"{Fore.CYAN}{Style.BRIGHT}\nExecution Finished!\n{N - len(Error_Nights)} {Device_Name} recordings(s) were successfully processed.")
     
     if Error_Nights.empty is False:
-        error_report_path = out_dir + "//" + "eegFloss_error_nights.csv"
+        error_report_path = os.path.normpath(os.path.join(out_dir, "eegFloss_error_nights.csv"))
         Error_Nights.to_csv(error_report_path, index=False)
         print(f"{Fore.RED}{Style.BRIGHT}Checking {len(Error_Nights)} night(s) failed. Please see this file for details:{Style.RESET_ALL}\n{error_report_path}")
 
