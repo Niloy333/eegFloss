@@ -9,9 +9,9 @@
 
 **— A Python package to *floss out* artifacts from sleep EEG recordings**
 
-**Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read Before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people)
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/eegFloss_logo.jpg" alt="eegFloss_logo" width="250">
 
-<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/eegFloss_logo.jpg" alt="eegFloss_logo" width="300">
+**Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read Before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people)
 
 ## Overview
 EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or undetected, which can impair the performance and reliability of data-driven models or analyses, especially automatic sleep-stage scoring models,  and reduce the credibility of study outcomes.
