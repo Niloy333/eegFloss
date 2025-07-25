@@ -1752,7 +1752,7 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
     lc = LineCollection(segments, colors=colors, linewidths=linewidths)
     axs[n_sigs + 1].add_collection(lc)
     axs[n_sigs + 1].set_xlim(x[0], x[-1])
-    axs[n_sigs + 1].set_ylim(-1.2, 4.1)
+    axs[n_sigs + 1].set_ylim(-1.2, 4.2)
     axs[n_sigs + 1].grid(True, axis='y', color='gainsboro')
     axs[n_sigs + 1].set_title(f'Hypnogram (with aggregated data usability)', fontsize=9, fontweight='bold')
     axs[n_sigs + 1].tick_params(axis='y', labelsize=9)
