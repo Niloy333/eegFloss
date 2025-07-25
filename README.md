@@ -103,7 +103,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - Feature extraction is typically the most time-consuming step (unless using a ‘lite’ model). To avoid recomputation, copy the `eegFloss_stat_features.npz` files to the data directory alongside the EDF files after processing the data once.
 
 ### TIB Detection and Accelerometer Requirements
-- Automatic TIB detection using the eegMobility model is validated only for Zmax data. The model's training data is publicly available at [Kaggle.com](https://doi.org/10.34740/kaggle/dsv/12525688).
+- Automatic TIB detection using the eegMobility model is validated only for Zmax data. The model's training data is publicly available at [Kaggle.com/datasets/niloy333/eegmobility-dataset](https://doi.org/10.34740/kaggle/dsv/12525688).
 - If you want to test it for another device, ensure that the tri-axial accelerometer data is measured in units of g, falls within a range of ±2g (clip extreme values if needed), and includes gravitational acceleration (meaning the normalized data should center around 1g).
 - Analyzing EEG data without accompanying accelerometer signals may lead to the removal of some arousals due to a lack of motion information.
 
