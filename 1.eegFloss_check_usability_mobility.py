@@ -145,7 +145,7 @@ Add_Index_in_Outputs = 'timestamp'
 
 ''' The necessary input has been provided, please run the script.'''
 
-#%% Importing packages, functions and ML models, and preforming the initial checkes:
+#%% Importing packages, functions, and ML models, and performing the initial checks:
 
 # from eegFloss_functions import *
 import os, inspect
@@ -193,8 +193,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
         if eeg_signals is None: continue
 
         # All EEG channels' samp_rate needs to be the same. If not, adjusting:
-        eeg_signals, eeg_samp_rate = adjust_samp_rate(
-            eeg_signals, eeg_samp_rates)
+        eeg_signals, eeg_samp_rate = adjust_samp_rate(eeg_signals, eeg_samp_rates)
 
         # Converting to np array:
         eeg_signals = crop_n_make_nparray(eeg_signals, eeg_samp_rate)
@@ -203,8 +202,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
         samples_eeg = make_samples(eeg_signals, eeg_samp_rate, 'Usability')
 
         # Extracting spectrogram features from EEG data:
-        spec_feats_eeg = extract_spectrogram_features(
-            samples_eeg, eeg_samp_rate)
+        spec_feats_eeg = extract_spectrogram_features(samples_eeg, eeg_samp_rate)
 
         if ACC_Channels is not None:
             # Reading ACC data:
@@ -214,8 +212,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
             if acc_signals is None:  continue
 
             # All ACC channels' samp_rate needs to be the same as eeg_samp_rate. If not, adjusting:
-            acc_signals, acc_samp_rate = adjust_samp_rate(
-                acc_signals, acc_samp_rates, eeg_samp_rate)
+            acc_signals, acc_samp_rate = adjust_samp_rate(acc_signals, acc_samp_rates, eeg_samp_rate)
 
             # Converting to np array:
             acc_signals = crop_n_make_nparray(acc_signals, acc_samp_rate)
@@ -233,42 +230,34 @@ for num_night, src_night in enumerate(all_nights, start=1):
             samples_acc_agg = make_samples(acc_agg, acc_samp_rate, 'Usability')
 
             # Extracting spectrogram features from ACC data:
-            spec_feats_acc_agg = extract_spectrogram_features(
-                samples_acc_agg, acc_samp_rate)
+            spec_feats_acc_agg = extract_spectrogram_features(samples_acc_agg, acc_samp_rate)
 
         else:
             # If real ACC data is unavailable, features from pseudo ACC data (no movements) is still needed to match the expected featuremap. This step will not cause delay.
-            spec_feats_acc_agg, stat_feats_acc_agg, acc_samp_rate = pseudo_acc_feats(
-                eeg_signals.shape[1], eeg_samp_rate)
+            spec_feats_acc_agg, stat_feats_acc_agg, acc_samp_rate = pseudo_acc_feats(eeg_signals.shape[1], eeg_samp_rate)
 
         if eegUsability_Model in usa_lite_versions:
             # For eegUsability lite versions only spectrogram features are necessary.
             # So, samples for classification can already be created.
-            usa_samples = create_samples_usability_lite(
-                spec_feats_eeg, spec_feats_acc_agg)
+            usa_samples = create_samples_usability_lite(spec_feats_eeg, spec_feats_acc_agg)
 
         else:
             # For regular versions, statistical features are also necessary. Extracting from EEG:
-            stat_feats_eeg = get_stat_feats(
-                file_exists, samples_eeg, stat_feats_eeg, eeg_samp_rate, 'EEG')
+            stat_feats_eeg = get_stat_feats(file_exists, samples_eeg, stat_feats_eeg, eeg_samp_rate, 'EEG')
 
             # Extracting from ACC:
             if acc_signals is not None:
-                stat_feats_acc_agg = get_stat_feats(
-                    file_exists, samples_acc_agg, stat_feats_acc_agg, acc_samp_rate, 'ACCagg')
+                stat_feats_acc_agg = get_stat_feats(file_exists, samples_acc_agg, stat_feats_acc_agg, acc_samp_rate, 'ACCagg')
             
             # Combining spectrogram and statistical features to prepare samples for classification:
-            usa_samples = create_samples_usability(
-                spec_feats_eeg, stat_feats_eeg, spec_feats_acc_agg, stat_feats_acc_agg)
+            usa_samples = create_samples_usability(spec_feats_eeg, stat_feats_eeg, spec_feats_acc_agg, stat_feats_acc_agg)
 
         # Checking data usability:
-        usability_scores, pred_mat_data = predict_usability(
-            src_night, usa_samples, usability_model, eeg_samp_rate)
+        usability_scores, pred_mat_data = predict_usability(src_night, usa_samples, usability_model, eeg_samp_rate)
 
         # Saving features for future use:
         if Save_Features is True:
-            save_extracted_features(
-                dest_night, stat_feats_eeg, stat_feats_acc_agg, stat_feats_acc)
+            save_extracted_features(dest_night, stat_feats_eeg, stat_feats_acc_agg, stat_feats_acc)
         
         # Saving prediction metrics for future use:
         if Save_Prediction_Mats is True:
@@ -285,8 +274,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
             # If EEG data is not in the memory, reading it again:
             eeg_signals, eeg_samp_rates, org_dur = read_data(src_night, 'EEG')
             if eeg_signals is None: continue
-            eeg_signals, eeg_samp_rate = adjust_samp_rate(
-                eeg_signals, eeg_samp_rates)
+            eeg_signals, eeg_samp_rate = adjust_samp_rate(eeg_signals, eeg_samp_rates)
             eeg_signals = crop_n_make_nparray(eeg_signals, eeg_samp_rate)
 
         if acc_agg is None:
@@ -294,8 +282,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
                 # If ACC data is not in the memory, reading it again:
                 acc_signals, acc_samp_rates, _ = read_data(src_night, 'ACC')
                 if acc_signals is None:  continue
-                acc_signals, acc_samp_rate = adjust_samp_rate(
-                    acc_signals, acc_samp_rates, eeg_samp_rate)
+                acc_signals, acc_samp_rate = adjust_samp_rate(acc_signals, acc_samp_rates, eeg_samp_rate)
                 acc_signals = crop_n_make_nparray(acc_signals, acc_samp_rate)
                 acc_signals_ok = check_acc_signals(src_night, acc_signals)
                 acc_agg = euclidean_norm(acc_signals)
@@ -303,31 +290,26 @@ for num_night, src_night in enumerate(all_nights, start=1):
         if usability_scores is None:
             # Reading existing usability scores if not in the current memory:
             # Use this function to read eegFloss CSV outputs in your work:
-            usability_scores_df, start_end_info_df, usability_scores_header = read_scores(
-                file_exists['usability_scores'])
+            usability_scores_df, start_end_info_df, usability_scores_header = read_scores(file_exists['usability_scores'])
             usability_scores = usability_scores_df.values.astype(np.int8)
 
         # Plotting the usability graphs:
-        plot_data = plot_usability_graph(
-            src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate, usability_scores, file_exists)
+        plot_data = plot_usability_graph(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate, usability_scores, file_exists)
 
 #%% Step-3: Aggregating sleep and usability scores:
     
     if Aggregate_Scores is True and Sleep_Scores_Flname is not None and (not file_exists['artifact_rejected_scores'] or not file_exists['artifact_rejected_scores_within_tib']):
         if usability_scores is None:
-            usability_scores_df, _, _ = read_scores(
-                file_exists['usability_scores'])
+            usability_scores_df, _, _ = read_scores(file_exists['usability_scores'])
             usability_scores = usability_scores_df.values.astype(np.int8)
 
         # Reading sleep scores:
-        sleep_scores = read_sleep_scores(
-            src_night, file_exists['Sleep_Scores'], org_dur, usability_scores.shape[0])
+        sleep_scores = read_sleep_scores(src_night, file_exists['Sleep_Scores'], org_dur, usability_scores.shape[0])
         # If sleep scores could not be read, the night will be skipped:
         if sleep_scores is None: continue
 
         # Aggregating sleep and usability scores:
-        agg_scores = aggregate_scores(
-            dest_night, sleep_scores, usability_scores, eeg_samp_rate)
+        agg_scores = aggregate_scores(dest_night, sleep_scores, usability_scores, eeg_samp_rate)
 
 #%% Step-4: Checking the degree of the participant's mobility (unless previously done):
     
@@ -336,8 +318,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
         if acc_signals is None:
             acc_signals, acc_samp_rates, _ = read_data(src_night, 'ACC')
             if acc_signals is None: continue
-            acc_signals, acc_samp_rate = adjust_samp_rate(
-                acc_signals, acc_samp_rates, max(acc_samp_rates.values()))
+            acc_signals, acc_samp_rate = adjust_samp_rate(acc_signals, acc_samp_rates, max(acc_samp_rates.values()))
             acc_signals = crop_n_make_nparray(acc_signals, acc_samp_rate)
             acc_signals_ok = check_acc_signals(src_night, acc_signals)
             if acc_signals_ok is False: continue
@@ -351,19 +332,16 @@ for num_night, src_night in enumerate(all_nights, start=1):
 
         else:
             # Extracting statistical features for the default eegMobility model:
-            stat_feats_acc = get_stat_feats(
-                file_exists, samples_acc, stat_feats_acc, acc_samp_rate, 'ACC')
+            stat_feats_acc = get_stat_feats(file_exists, samples_acc, stat_feats_acc, acc_samp_rate, 'ACC')
 
             # Creating samples for mobility classification:
             mob_samples = create_samples_mobility(stat_feats_acc)
 
         # Checking the degree of mobility:
-        mobility_scores, pred_mat_data = predict_mobility(
-            src_night, mob_samples, mobility_model, acc_samp_rate, pred_mat_data)
+        mobility_scores, pred_mat_data = predict_mobility(src_night, mob_samples, mobility_model, acc_samp_rate, pred_mat_data)
 
         if Save_Features is True:
-            save_extracted_features(
-                dest_night, stat_feats_eeg, stat_feats_acc_agg, stat_feats_acc)
+            save_extracted_features(dest_night, stat_feats_eeg, stat_feats_acc_agg, stat_feats_acc)
 
         if Save_Prediction_Mats is True:
             save_pred_mat(dest_night, pred_mat_data)
@@ -371,14 +349,11 @@ for num_night, src_night in enumerate(all_nights, start=1):
         del samples_acc, mob_samples, stat_feats_eeg, stat_feats_acc_agg, stat_feats_acc
 
         # Determing the  from mobility scores:
-        lights_out_ep, lights_on_ep = determine_lights_out_on(
-            mobility_scores, dest_night, acc_samp_rate)
+        lights_out_ep, lights_on_ep = determine_lights_out_on(mobility_scores, dest_night, acc_samp_rate)
 
         # Saving sleep and usability scores within TIB:
         if lights_out_ep is not None:
-            save_scores_within_TIB(src_night, file_exists, usability_scores,
-                                   agg_scores, lights_out_ep, lights_on_ep, eeg_samp_rate, 
-                                   org_dur)
+            save_scores_within_TIB(src_night, file_exists, usability_scores, agg_scores, lights_out_ep, lights_on_ep, eeg_samp_rate, org_dur)
     
     # updating the counter:
     num_done_nights = num_done_nights + 1
@@ -386,15 +361,12 @@ for num_night, src_night in enumerate(all_nights, start=1):
 #%% Step-5: Calculating sleep statistics:
     
     if Calculate_Sleep_Stats is True:
-        stats_ok = calculate_n_save_stats(
-            src_night, file_exists, sleep_scores, agg_scores, lights_out_ep, lights_on_ep)
+        stats_ok = calculate_n_save_stats(src_night, file_exists, sleep_scores, agg_scores, lights_out_ep, lights_on_ep)
 
 #%% Step-6: Plotting hypnogram:
     
     if Hypnogram_Flname is not None and Sleep_Scores_Flname is not None and Sleep_Scores_Flname != 'pseudo_scores':
-        plot_ok = plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate,
-                                 agg_scores, lights_out_ep, lights_on_ep, mobility_scores,
-                                 plot_data)
+        plot_ok = plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate, agg_scores, lights_out_ep, lights_on_ep, mobility_scores, plot_data)
 
 #%% End of processing:
     
