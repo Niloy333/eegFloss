@@ -39,6 +39,7 @@ from scipy.signal import spectrogram
 from lspopt import spectrogram_lspopt
 from scipy.interpolate import interp1d
 import lightgbm as lgb # version: 3.3.2
+from matplotlib.collections import LineCollection
 from scipy.signal import butter, filtfilt, iirnotch
 from matplotlib.ticker import FuncFormatter, MultipleLocator
 from importlib.metadata import version, PackageNotFoundError
@@ -1546,7 +1547,6 @@ def plot_usability_graph(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_sam
         return None
     print("\tPlotting usability graph...")
     dest_night = os.path.normpath(src_night.replace(Raw_Data_Dir, Output_Dir))
-    
     if key is None:
         file_path = os.path.normpath(os.path.join(dest_night, Usability_Graph_Flname))
     elif key == 'post_filter':
@@ -1562,7 +1562,7 @@ def plot_usability_graph(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_sam
     
     num_plot = num_signals * 2 + 1
     plt.ioff()
-    # plt.rcParams['font.family'] = 'Times New Roman'
+    plt.rcParams['font.family'] = 'Times New Roman'
     fig, axs = plt.subplots(num_plot, 1, figsize=(15, num_plot * 1.75))
     
     title_base = f"Usability graph showing artifacts detected in each {Device_Name} EEG channel by eegUsability ({Usability_Model_Version}) in {Usability_Epoch_Length}-second epochs (at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')})\nof recording: '{src_night}'"
@@ -1618,14 +1618,23 @@ def plot_usability_graph(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_sam
         axs[2*i + 1].set_xlabel(label, fontsize=9)
 
         # Usability scores
-        axs[2*i + 2].plot(usa_scores[:, i], linewidth=0.6, color='crimson')
-        axs[2*i + 2].set_xlim(0, len(usa_scores[:, i]))
+        y = usa_scores[:, i].copy()
+        x = np.arange(len(y))
+        points = np.array([x, y]).T.reshape(-1, 1, 2)
+        segments = np.concatenate([points[:-1], points[1:]], axis=1)
+        colors = ['limegreen' if y[j] == 0 and y[j+1] == 0 else 'crimson' for j in range(len(y) - 1)]
+        linewidths = [1.0 if y[j] == 0 and y[j+1] == 0 else 0.8 for j in range(len(y) - 1)]
+        lc = LineCollection(segments, colors=colors, linewidths=linewidths)
+        axs[2*i + 2].add_collection(lc)
+        axs[2*i + 2].set_xlim(x[0], x[-1])
+        axs[2*i + 2].set_ylim(-0.2, 4.1)  # Adjust based on label range (0–4)
         axs[2*i + 2].grid(True, axis='y', color='gainsboro')
         axs[2*i + 2].set_title(f'Usability/artifact labels for channel {ch_name}', fontsize=9, fontweight='bold')
         axs[2*i + 2].tick_params(axis='y', labelsize=9)
         axs[2*i + 2].tick_params(axis='x', labelsize=9)
-        format_time_from_index(axs[2*i + 2], len(usa_scores[:, i]), Usability_Epoch_Length)
+        format_time_from_index(axs[2*i + 2], len(y), Usability_Epoch_Length)
         axs[2*i + 2].set_xlabel(label, fontsize=9)
+        del y, x, points, segments, colors, linewidths
         if Ignore_M_Shaped_Noise is True:
             axs[2*i + 2].set_yticks(np.linspace(0, 3, 4))
             axs[2*i + 2].set_yticklabels(['Good data', 'No data', 'High Noise', 'Spiky'], fontsize=9)
@@ -1687,7 +1696,7 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
         agg_scores_plot[agg_scores_plot == Unusable_Label] = -1
     
     plt.ioff()
-    # plt.rcParams['font.family'] = 'Times New Roman'
+    plt.rcParams['font.family'] = 'Times New Roman'
     fig, axs = plt.subplots(num_plot, 1, figsize=(15, num_plot * 1.75))
 
     title_base = f"Hypnogram with (aggregated) data usability, device: {Device_Name}, sleep scores: '{Sleep_Scores_Flname}' in {Sleep_Scores_Epoch_Length}-sec epochs, usability model: eegUsability {Usability_Model_Version} in {Usability_Epoch_Length}-sec epochs\nData source: '{src_night}'"
@@ -1734,8 +1743,16 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
         axs[n_sigs].set_xlabel(labela, fontsize=9)
     
     # Agg_scores
-    axs[n_sigs + 1].plot(agg_scores, linewidth=0.75, color='mediumblue')
-    axs[n_sigs + 1].set_xlim(0, len(agg_scores))
+    y = agg_scores.copy()
+    x = np.arange(len(y))
+    points = np.array([x, y]).T.reshape(-1, 1, 2)
+    segments = np.concatenate([points[:-1], points[1:]], axis=1)
+    colors = ['crimson' if y[j] == -1 and y[j+1] == -1 else 'mediumblue' for j in range(len(y) - 1)]
+    linewidths = [1 if y[j] == -1 and y[j+1] == -1 else 0.75 for j in range(len(y) - 1)]
+    lc = LineCollection(segments, colors=colors, linewidths=linewidths)
+    axs[n_sigs + 1].add_collection(lc)
+    axs[n_sigs + 1].set_xlim(x[0], x[-1])
+    axs[n_sigs + 1].set_ylim(-1.2, 4.1)
     axs[n_sigs + 1].grid(True, axis='y', color='gainsboro')
     axs[n_sigs + 1].set_title(f'Hypnogram (with aggregated data usability)', fontsize=9, fontweight='bold')
     axs[n_sigs + 1].tick_params(axis='y', labelsize=9)
@@ -1748,6 +1765,7 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
     if mobility_scores is not None:
         axs[n_sigs + 2].plot(mobility_scores, linewidth=0.8, color='teal')
         axs[n_sigs + 2].set_xlim(0, len(mobility_scores))
+        axs[n_sigs + 2].set_ylim(-0.2, 4)
         axs[n_sigs + 2].grid(True, axis='y', color='gainsboro')
         axs[n_sigs + 2].set_title(f'Degree of Mobility (the purple line indicates the identified time-in-bed)', fontsize=9, fontweight='bold')    
         axs[n_sigs + 2].tick_params(axis='y', labelsize=9)
@@ -1757,7 +1775,6 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
         axs[n_sigs + 2].set_yticks(np.linspace(0, 3, 4))
         axs[n_sigs + 2].set_yticklabels(['Idle', 'Lying', 'Stationary', 'Mobile'], fontsize=9)
         if lights_out_ep is not None and lights_out_ep != lights_on_ep:
-            axs[n_sigs + 2].set_ylim(0, 4)
             lights_out_ep, lights_on_ep = lights_out_ep + 2, lights_on_ep - 2
             axs[n_sigs + 2].plot(range(lights_out_ep, lights_on_ep), [3.5] * (lights_on_ep - lights_out_ep), color='purple', linewidth=1.25, linestyle='-')                
 
