@@ -144,12 +144,12 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 ## Sample Outputs
 
 ### Usability Graph
-<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/usability_graph.png" alt="usability_graph_zmax" width="1000">
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/fig%206.png" alt="usability_graph_zmax" width="1000">
 
 >Figure 3: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.
  
 ### Hypnogram
-<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/hypnogram_with_usability.png" alt="hypnogram_zmax" width="1000">
+<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/fig%208.png" alt="hypnogram_zmax" width="1000">
 
 >Figure 4: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.
 
