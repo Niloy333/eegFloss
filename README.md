@@ -52,7 +52,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 - Aggregates the provided sleep scores with *usability scores* (the outcomes of artifact detection) using a majority rule (an epoch is marked unusable if more than half of its constituent segments are unusable) to generate *artifact-rejected sleep scores*.
 - Automatically identifies *Lights Out* and *Lights On* moments using a chosen *eegMobility* model and computes Time-in-Bed (TIB).
 - Computes common sleep statistics based on the artifact-rejected sleep scores and TIB.
-- Generates visualizations such as *usability graphs* (shows channel-wise data usability) and *hypnograms* (shows the overall outcomes) to better illustrate the models' outputs.
+- Generates visualizations such as *usability graphs* (shows channel-wise data usability) and *hypnograms* (shows the overall outcomes) to better illustrate the model's outputs.
 
 Here is a streamlined overview of the script’s internal workflow:
 <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/package_workflow.png" alt="script workflow" width="600"> 
