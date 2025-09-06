@@ -196,6 +196,16 @@ And cite the package as:
 <sup>#</sup>Developer  
 <sup>$</sup>Supervisor
 
+## Opportunities for Collaboration
+eegFloss is currently designed for sleep EEG data, and so far, it's been validated mainly on recordings from the Zmax headband. However, the package offers many exciting opportunities for improvement and expansion, including:
+- Improving the artifact detection model with additional training data
+- Integrating an automatic sleep-stage scorer to create a complete sleep analysis pipeline
+- Validating performance on non-Zmax datasets
+- Extending support to artifact detection in wake EEG with
+- Developing a user-friendly graphical interface (GUI)
+- And more
+We are exploring some of these ideas, but we can achieve much more through active collaboration. If any of this sounds interesting and you would like to get involved, please feel free to reach out.
+
 **This package is provided *as is*, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.**
 
 For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@hochschule-rhein-waal.de).
