@@ -197,7 +197,7 @@ And cite the package as:
 <sup>$</sup>Supervisor
 
 ## Opportunities for Collaboration
-eegFloss is currently designed for sleep EEG data, and so far, it's been validated mainly on recordings from the Zmax headband. However, the package offers many exciting opportunities for improvement and expansion, including:
+**eegFloss is currently designed for sleep EEG data**, and so far, it's been **validated only on recordings from the Zmax headband**. However, the package offers many exciting opportunities for improvement and expansion, including:
 - Improving the artifact detection model with additional training data
 - Integrating an automatic sleep-stage scorer to create a complete sleep analysis pipeline
 - Validating performance on non-Zmax datasets
