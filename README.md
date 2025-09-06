@@ -158,7 +158,7 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 ## Reference Paper
 More information on this package and the underlying models can be found in:
 
-Sikder, N., Zerr, P., Jafarzadeh Esfahani, M., Dresler, M., & Krauledat, M. (2025). eegFloss: A Python package for refining sleep EEG recordings using machine learning models. arXiv. [https://doi.org/10.48550/arXiv.2507.06433](https://doi.org/10.48550/arXiv.2507.06433).
+Sikder, N., Zerr, P., Jafarzadeh Esfahani, M., Dresler, M., & Krauledat, M. (2025). *eegFloss*: A Python package for refining sleep EEG recordings using machine learning models. arXiv. [https://doi.org/10.48550/arXiv.2507.06433](https://doi.org/10.48550/arXiv.2507.06433).
 
 [Read on ResearchGate](https://www.researchgate.net/publication/393539640_eegFloss_A_Python_package_for_refining_sleep_EEG_recordings_using_machine_learning_models)
 
@@ -181,7 +181,7 @@ And cite the package as:
 ```bibtex
 @software{sikder2025eegflossv1,
   author    = {Niloy Sikder},
-  title     = {{eegFloss v1.0}},
+  title     = {eegFloss v1.0},
   year      = {2025},
   publisher = {Zenodo},
   doi       = {10.5281/zenodo.15823969},
