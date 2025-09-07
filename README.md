@@ -179,9 +179,9 @@ If you find this package helpful and use it in your work, please cite the refere
 And cite the package as:
 
 ```bibtex
-@software{sikder2025eegflossv1,
+@software{sikder2025eegfloss,
   author    = {Niloy Sikder},
-  title     = {eegFloss v1.0},
+  title     = {eegFloss},
   year      = {2025},
   publisher = {Zenodo},
   doi       = {10.5281/zenodo.15823969},
