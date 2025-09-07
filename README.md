@@ -179,7 +179,7 @@ If you find this package helpful and use it in your work, please cite the refere
 And cite the package as:
 
 ```bibtex
-@software{sikder2025eegfloss,
+@software{sikder2025eegflossv1,
   author    = {Niloy Sikder},
   title     = {eegFloss},
   year      = {2025},
