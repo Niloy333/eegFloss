@@ -4,6 +4,7 @@
 [![DOI](https://zenodo.org/badge/926585143.svg)](https://doi.org/10.5281/zenodo.15823969)
 ![Repo size](https://img.shields.io/github/repo-size/Niloy333/eegFloss)
 ![Last commit](https://img.shields.io/github/last-commit/Niloy333/eegFloss)
+[![FAIR checklist badge](https://fairsoftwarechecklist.net/badge.svg)](https://fairsoftwarechecklist.net/v0.2?f=21&a=31113&i=31300&r=132)
 
 # *eegFloss*
 
