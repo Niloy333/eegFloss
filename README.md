@@ -33,8 +33,8 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
    - **Linux**: Open a terminal and run:
    `source ~/anaconda3/bin/activate` or `source ~/miniconda3/bin/activate`.
    - **macOS**: Open a terminal.
-5. In the prompt, navigate to the extracted `eegFloss` directory. Example:  
-   `cd C:\eegFloss_v1.0\`
+5. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:  
+   `cd C:\Folder1\eegFloss-base\`
 6. Create a new environment named `eegFloss` with all the necessary packages:  
    `conda env create --name eegFloss --file eegFloss_dependencies.yml`
 7. Once the environment is created, activate it:  
@@ -120,6 +120,8 @@ Here is a streamlined overview of the script’s internal workflow:
    QT_QPA_PLATFORM=wayland spyder
    QT_QPA_PLATFORM=xcb spyder
    QT_QPA_PLATFORM=offscreen spyder
+  ```
+- On non-Conda environments, if you face issues with missing packages, try installing the packages listed on `eegFloss_dependencies.yml` manually in the given order using `pip install [package_name]==[version]`.
 
 ## Primary Artifacts
 eegUsability detects the following artifacts in raw sleep EEG data:
