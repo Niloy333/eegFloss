@@ -94,6 +94,7 @@ Pred_Mat_Flname = 'eegFloss_prediction_mats.pkl'
 Error_Nights = pd.DataFrame(columns = ['Night_dir', 'Reason'])
 usa_lite_versions = ['lite', 'v0.7', 'lite-weighted-M', 'v0.7.2', 'lite-binary', 'v0.7.3']
 Plot_DPI = 150
+Figure_Width = 15 #(inches)
 Usability_Model_Version = None
 Mobility_Epoch_Length = 10
 Target_Samp_Rate = 256
@@ -105,15 +106,15 @@ Error_Txts = {
     1: 'One or more EDF files were not found or could not be read. Check the data files.',
     2: 'Recording duration is less than 1 minute.',
     3: "Multiple EDF files were found in the night's directory, which is not allowed when All_Signals_in_One_File = True since this risks the results being overwritten.",
-    4: "Sleep scores were not found in the night's directory, could not be read, contain non-numeric values, or not in the first column of the file. Aggregation is not possible.",
-    5: "Sleep scores' length is inconsistant with data. Condition: Sleep_Score_Length = floor(Signal_Length/Sampling_Rate/Sleep_Scores_Epoch_Length).",
+    4: "Sleep scores were not found in the night's directory, could not be read, contain non-numeric values, or were not in the first column of the file. Aggregation is not possible.",
+    5: "Sleep scores' length is inconsistent with data. Condition: Sleep_Score_Length = floor(Signal_Length/Sampling_Rate/Sleep_Scores_Epoch_Length).",
     6: 'Sleep scores contain unexpected values. Conditions: 0⩽sleep_stage⩽5 and REM= 4 or 5',
     7: 'The aggregation of sleep and usability scores was unsuccessful. Condition: Usability_Score_Length = Sleep_Score_Length*(Sleep_Scores_Epoch_Length/Usability_Epoch_Length).',
-    8: 'Sleep statistics could not be calculated (likely to insufficient scorable epochs).',
+    8: 'Sleep statistics could not be calculated (likely due to insufficient scorable epochs).',
     9: 'TIB could not be determined or TIB = 0 seconds.',
     10: 'Sleep scores were unavailable; sleep statistics could not be calculated.',
     11: 'Sleep statistics could not be calculated due to TIB <= 1 mins.',
-    12: 'The provided ACC data may be incompatible. The Zmax ACC training data ranges from -2g to +2g. The normalized ACC data ranges from 0g to 3.46g, centered around 1g. Please ensure your input data adheres to the expected range and unit (g).',
+    12: 'The provided ACC data may be incompatible. The Zmax ACC training data ranges from -2g to +2g. The normalized ACC data ranges from 0g to 3.46g, centered around 1 g. Please ensure your input data adheres to the expected range and unit (g).',
     13: 'The given channels were not found in the file/folder. Check EEG_Channels and ACC_Channels.'
     }
 
@@ -1563,7 +1564,7 @@ def plot_usability_graph(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_sam
     num_plot = num_signals * 2 + 1
     plt.ioff()
     # plt.rcParams['font.family'] = 'Times New Roman'
-    fig, axs = plt.subplots(num_plot, 1, figsize=(15, num_plot * 1.75))
+    fig, axs = plt.subplots(num_plot, 1, figsize=(Figure_Width, num_plot * 1.75))
     
     title_base = f"Usability graph showing artifacts detected in each {Device_Name} EEG channel by eegUsability ({Usability_Model_Version}) in {Usability_Epoch_Length}-second epochs (at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')})\nof recording: '{src_night}'"
     
@@ -1697,7 +1698,7 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
     
     plt.ioff()
     # plt.rcParams['font.family'] = 'Times New Roman'
-    fig, axs = plt.subplots(num_plot, 1, figsize=(15, num_plot * 1.75))
+    fig, axs = plt.subplots(num_plot, 1, figsize=(Figure_Width, num_plot * 1.75))
 
     title_base = f"Hypnogram with (aggregated) data usability, device: {Device_Name}, sleep scores: '{Sleep_Scores_Flname}' in {Sleep_Scores_Epoch_Length}-sec epochs, usability model: eegUsability {Usability_Model_Version} in {Usability_Epoch_Length}-sec epochs\nData source: '{src_night}'"
     
@@ -1962,4 +1963,5 @@ def print_report(out_dir, N):
 #%%
 if __name__ == "__main__":
     print(f"{Fore.GREEN}{Style.BRIGHT}\neegFloss_functions.py was run directly.\nAll necessary packages and functions were successfully loaded!{Style.RESET_ALL}")
+
 
