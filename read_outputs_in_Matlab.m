@@ -1,3 +1,4 @@
+% This script shows how to read various outputs of the eegFloss package in MATLAB.
 
 % The night's directory:
 night_dir = "C:\Sciebo_files\eegFloss_v1.0\Out_dir\S1";
@@ -18,5 +19,8 @@ artifact_rejected_scores_tib = readtable(fullfile(night_dir, Artifact_Rejected_S
 lights_out_on_time = readtable(fullfile(night_dir, Lights_Out_On_Flname), "CommentStyle", "#");
 sleep_stats = readtable(fullfile(night_dir, Sleep_Stats_Flname), "CommentStyle", "#", ...
     "ReadVariableNames", false, "ReadRowNames", 1);
+
+% Flip sleep_stats:
+sleep_stats_row = array2table(sleep_stats{:,:}', 'VariableNames', sleep_stats.Properties.RowNames);
 
 
