@@ -205,7 +205,6 @@ And cite the package as:
 - Validating performance on non-Zmax datasets
 - Extending support to artifact detection in wake EEG
 - Developing a user-friendly graphical interface (GUI)
-- And more
 
 We are exploring some of these ideas, but we can achieve much more through active collaboration. If any of this sounds interesting and you would like to get involved, please feel free to reach out.
 
