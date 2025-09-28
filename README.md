@@ -42,7 +42,7 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 8. To start coding:
    - Launch Spyder and manually open the scripts:
      `spyder`
-   - Or, use your preferred code editor and run the script from the command line. Example:  
+   - Or, use your preferred code editor and run the script from the Conda prompt. Example:  
      `python 1.eegFloss_check_usability_mobility.py`
 
 ## Script Descriptions
