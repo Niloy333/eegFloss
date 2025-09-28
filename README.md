@@ -18,7 +18,7 @@ EEG data often contains artifacts caused by both internal factors (such as devic
 
 Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
 
-**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the data follows standard AASM definitions.
+**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax wearable sleep EEG headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the data follows standard AASM definitions.
 
 The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper](#reference-paper).
 
@@ -87,7 +87,7 @@ Here is a streamlined overview of the script’s internal workflow:
 ### Sleep-Stage Scoring
 - eegFloss **does not include** a built-in automatic sleep-stage scorer and cannot infer sleep stages from EEG or other signals.
 - However, if you provide sleep scores alongside your data, it can generate artifact-rejected sleep scores by combining the provided sleep scores and the detected data usability.
-- If your data is not manually scored, consider using open-source automatic sleep scorers such as [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), or [Dreamento](https://github.com/dreamento/dreamento) (only for Zmax data).
+- If your data is not manually scored, consider using open-source automatic sleep scorers, such as [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), or [SomnoBot](https://somnobot.fh-aachen.de/) for PSG data, or [Dreamento](https://github.com/dreamento/dreamento) or [ezscore-f](https://github.com/coonwg1/ezscore) for Zmax data.
 
 ### Sleep Score Format
 - Sleep stages are expected to be labeled as 0 = Wake, 1 = N1, 2 = N2, 3 = N3, and 4 or 5 = REM. Deviating from this convention will result in incorrect visualizations and sleep statistics.
