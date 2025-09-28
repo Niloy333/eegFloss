@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>eegFloss — A Python package to floss out artifacts from sleep EEG recordings</title>
+  <meta name="description" content="eegFloss: A Python package to refine sleep EEG recordings using ML models for artifact detection and data usability." />
+  <style>
+    :root{
+      --bg: #ffffff;
+      --fg: #1b1f24;
+      --muted: #5b6573;
+      --link: #0b66ff;
+      --link-visited: #5a38b5;
+      --card: #f6f8fa;
+      --border: #e5e7eb;
+      --code-bg: #0b1220;
+      --code-fg: #e6edf3;
+      --accent: #0ea5e9;
+      --kbd-bg: #f3f4f6;
+      --kbd-fg: #111827;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root{
+        --bg: #0b0f14;
+        --fg: #e6edf3;
+        --muted: #9aa4b2;
+        --link: #66a3ff;
+        --link-visited: #a991ff;
+        --card: #141a22;
+        --border: #253040;
+        --code-bg: #0b1220;
+        --code-fg: #e6edf3;
+        --kbd-bg: #1f2937;
+        --kbd-fg: #e5e7eb;
+      }
+    }
+    html, body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";line-height:1.6}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    a:visited{color:var(--link-visited)}
+    .container{max-width:1000px;margin:0 auto;padding:2rem 1rem 4rem}
+    header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+    header img{border-radius:12px;border:1px solid var(--border)}
+    h1{font-size:2.2rem;margin:0.5rem 0}
+    h2{margin-top:2.25rem;border-top:1px solid var(--border);padding-top:1.25rem}
+    h3{margin-top:1.5rem}
+    .tagline{color:var(--muted);font-weight:500}
+    .toc{background:var(--card);border:1px solid var(--border);padding:0.75rem 1rem;border-radius:12px}
+    .toc a{white-space:nowrap}
+    .note{background:var(--card);border:1px solid var(--border);padding:1rem;border-radius:12px}
+    code, pre, kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    kbd{background:var(--kbd-bg);color:var(--kbd-fg);padding:0.15rem 0.4rem;border-radius:6px;border:1px solid var(--border);box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}
+    pre{background:var(--code-bg);color:var(--code-fg);padding:1rem;border-radius:12px;overflow:auto;border:1px solid var(--border)}
+    code{background:rgba(127,127,127,.1);padding:.1rem .3rem;border-radius:6px}
+    figure{margin:1rem 0}
+    figcaption{font-size:0.95rem;color:var(--muted);margin-top:.5rem}
+    table{width:100%;border-collapse:collapse;margin:1rem 0;border:1px solid var(--border)}
+    th, td{border-bottom:1px solid var(--border);padding:0.6rem;vertical-align:top}
+    th{background:var(--card);text-align:left}
+    .small{font-size:.95rem}
+    .footer{margin-top:3rem;font-size:.95rem;color:var(--muted)}
+    .flex-wrap{display:flex;flex-wrap:wrap;gap:.5rem}
+    .pill{display:inline-block;background:var(--card);border:1px solid var(--border);padding:.2rem .6rem;border-radius:9999px}
+    .top-link{position:fixed;right:14px;bottom:14px;background:var(--card);border:1px solid var(--border);padding:.5rem .7rem;border-radius:10px}
+    .top-link:focus{outline:2px solid var(--accent)}
+    .lead{font-size:1.05rem}
+    .muted{color:var(--muted)}
+    /* Improve anchor scrolling offset for fixed top-link */
+    :target{scroll-margin-top: 80px;}
+  </style>
+</head>
+<body>
+  <a id="top"></a>
+  <div class="container">
+    <header>
+      <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/eegFloss_logo.jpg" alt="eegFloss logo" width="120" height="120" />
+      <div>
+        <h1>eegFloss</h1>
+        <div class="tagline">— A Python package to <em>floss out</em> artifacts from sleep EEG recordings</div>
+      </div>
+    </header>
+
+    <nav class="toc small" aria-label="Table of Contents">
+      <strong>Table of Contents:</strong>
+      <div class="flex-wrap" role="list">
+        <a role="listitem" href="#overview">Overview</a> |
+        <a role="listitem" href="#installation">Installation</a> |
+        <a role="listitem" href="#script-descriptions">Script Descriptions</a> |
+        <a role="listitem" href="#read-before-execution">Read Before Execution</a> |
+        <a role="listitem" href="#primary-artifacts">Primary Artifacts</a> |
+        <a role="listitem" href="#eegusability-models">eegUsability Models</a> |
+        <a role="listitem" href="#sample-outputs">Sample Outputs</a> |
+        <a role="listitem" href="#reference-paper">Reference Paper</a> |
+        <a role="listitem" href="#cite">Cite</a> |
+        <a role="listitem" href="#people">People</a> |
+        <a role="listitem" href="#opportunities-for-collaboration">Opportunities for Collaboration</a>
+      </div>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p class="lead">
+        EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or undetected, which can impair the performance and reliability of data-driven models or analyses, especially automatic sleep-stage scoring models, and reduce the credibility of study outcomes.
+      </p>
+      <p>
+        Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
+      </p>
+      <p>
+        <strong>eegFloss</strong> addresses this challenge with <em>eegUsability</em>—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the data follows standard AASM definitions.
+      </p>
+      <p>
+        The package also includes <em>eegMobility</em>—an ML model that detects the degree of movement throughout the night based on <strong>Zmax</strong> accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the <a href="#reference-paper">associated paper</a>.
+      </p>
+    </section>
+
+    <section id="installation">
+      <h2>Installation</h2>
+      <p>It is recommended to use <strong>eegFloss</strong> within a dedicated Anaconda or Miniconda environment. Follow these steps:</p>
+      <ol>
+        <li>Download and install <a href="https://www.anaconda.com/download/success">Anaconda or Miniconda</a> for your operating system.</li>
+        <li><a href="https://github.com/Niloy333/eegFloss/archive/refs/heads/base.zip">Download eegFloss</a>, extract the compressed file, and place it in a suitable and accessible directory.</li>
+        <li>On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.</li>
+        <li>Launch the Anaconda Prompt:
+          <ul>
+            <li><strong>Windows</strong>: Search for <kbd>Anaconda Prompt</kbd> in the Start menu.</li>
+            <li><strong>Linux</strong>: Open a terminal and run:<br>
+              <code>source ~/anaconda3/bin/activate</code> or <code>source ~/miniconda3/bin/activate</code>.
+            </li>
+            <li><strong>macOS</strong>: Open a terminal.</li>
+          </ul>
+        </li>
+        <li>In the prompt, navigate to the extracted <code>eegFloss</code> directory (the directory of the <code>.py</code> files). Example:<br>
+          <code>cd C:\Folder1\eegFloss-base\</code>
+        </li>
+        <li>Create a new environment named <code>eegFloss</code> with all the necessary packages:<br>
+          <code>conda env create --name eegFloss --file eegFloss_dependencies.yml</code>
+        </li>
+        <li>Once the environment is created, activate it:<br>
+          <code>conda activate eegFloss</code>
+        </li>
+        <li>To start coding:
+          <ul>
+            <li>Launch Spyder and manually open the scripts:<br><code>spyder</code></li>
+            <li>Or, use your preferred code editor and run the script from the command line. Example:<br>
+              <code>python 1.eegFloss_check_usability_mobility.py</code>
+            </li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <section id="script-descriptions">
+      <h2>Script Descriptions</h2>
+
+      <h3><code>1.eegFloss_check_usability_mobility.py</code></h3>
+      <ul>
+        <li>Detects artifacts in sleep EEG data using a chosen <a href="#eegusability-models">eegUsability model</a>.</li>
+        <li>Aggregates the provided sleep scores with <em>usability scores</em> (the outcomes of artifact detection) using a majority rule (an epoch is marked unusable if more than half of its constituent segments are unusable) to generate <em>artifact-rejected sleep scores</em>.</li>
+        <li>Automatically identifies <em>Lights Out</em> and <em>Lights On</em> moments using a chosen <em>eegMobility</em> model and computes Time-in-Bed (TIB).</li>
+        <li>Computes common sleep statistics based on the artifact-rejected sleep scores and TIB.</li>
+        <li>Generates visualizations such as <em>usability graphs</em> (shows channel-wise data usability) and <em>hypnograms</em> (shows the overall outcomes) to better illustrate the model's outputs.</li>
+      </ul>
+
+      <figure>
+        <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/package_workflow.png" alt="A simplified workflow of 1.eegFloss_check_usability_mobility.py" width="600" />
+        <figcaption>Figure 1: A simplified workflow of <code>1.eegFloss_check_usability_mobility.py</code>.</figcaption>
+      </figure>
+
+      <h3><code>2.eegFloss_spiky_noise_filter.py</code></h3>
+      <ul>
+        <li>Identifies the presence of Spiky artifacts in EEG recordings.</li>
+        <li>If detected, it applies a custom filter to remove the artifact.</li>
+        <li>Saves the cleaned data to a new file (which can then be sleep-scored).</li>
+      </ul>
+
+      <h3><code>3.eegFloss_file_cleanup.py</code></h3>
+      <ul>
+        <li>Deletes intermediate or unnecessary files generated during processing to reduce clutter.</li>
+      </ul>
+
+      <h3><code>eegFloss_functions.py</code></h3>
+      <ul>
+        <li>Contains all imports and helper functions required by the main scripts.</li>
+        <li>Modify this file only if you need to customize core functionalities.</li>
+      </ul>
+
+      <h3><code>read_outputs_in_Matlab.m</code></h3>
+      <ul>
+        <li>Shows how to read various eegFloss output files in MATLAB.</li>
+      </ul>
+
+      <p class="note"><strong>Note:</strong> Please read the comments in the input-output cells of each script carefully before running the script.</p>
+    </section>
+
+    <section id="read-before-execution">
+      <h2>Read before Execution</h2>
+
+      <h3>File Type: EDF &amp; BDF</h3>
+      <ul>
+        <li>eegFloss currently supports only EDF and BDF files. Therefore, raw EEG signal(s) must be stored in the EDF/BDF format.</li>
+        <li>If your data is in a different format, check whether the associated software suite of your recording device allows exporting as or converting data to EDFs.</li>
+        <li>If not, you can manually convert data using Python libraries such as <a href="https://pyedflib.readthedocs.io/en/latest/">PyEDFlib</a> or <a href="https://github.com/mne-tools/mne-python">MNE</a>.</li>
+      </ul>
+
+      <h3>Sleep-Stage Scoring</h3>
+      <ul>
+        <li>eegFloss <strong>does not include</strong> a built-in automatic sleep-stage scorer and cannot infer sleep stages from EEG or other signals.</li>
+        <li>However, if you provide sleep scores alongside your data, it can generate artifact-rejected sleep scores by combining the provided sleep scores and the detected data usability.</li>
+        <li>If your data is not manually scored, consider using open-source automatic sleep scorers such as <a href="https://sleep.ai.ku.dk/">U-Sleep</a>, <a href="https://yasa-sleep.org/">YASA</a>, or <a href="https://github.com/dreamento/dreamento">Dreamento</a> (only for Zmax data).</li>
+      </ul>
+
+      <h3>Sleep Score Format</h3>
+      <ul>
+        <li>Sleep stages are expected to be labeled as 0 = Wake, 1 = N1, 2 = N2, 3 = N3, and 4 or 5 = REM. Deviating from this convention will result in incorrect visualizations and sleep statistics.</li>
+        <li>The sleep scores must be stored in the first column of a TXT/CSV file located in the same directory as the corresponding EDF file. The number of epochs must match the recording duration.</li>
+      </ul>
+
+      <h3>Data Organization</h3>
+      <ul>
+        <li>Each recording should reside in a separate directory. Placing multiple recordings in the same directory will cause eegFloss outputs to overwrite one another. Provide the parent directory as the <code>Raw_Data_Dir</code>.</li>
+      </ul>
+
+      <h3>Output Directory Management</h3>
+      <ul>
+        <li>While it is possible to save eegFloss outputs in the same directory as the recordings by setting <code>Output_Dir = Raw_Data_Dir</code>, this is not recommended.</li>
+        <li>eegFloss checks for prior outputs to skip redundant processing. So, consider saving the additional outputs, even if they are not needed for your analysis.</li>
+        <li>If you later modify key settings (e.g., change the usability model or adjust TIB thresholds), the tool may incorrectly skip reprocessing due to existing outputs. To prevent this, use a separate output directory for each round of processing.</li>
+        <li>Feature extraction is typically the most time-consuming step (unless using a ‘lite’ model). To avoid recomputation, copy the <code>eegFloss_stat_features.npz</code> files to the data directory alongside the EDF files after processing the data once.</li>
+      </ul>
+
+      <h3>TIB Detection and Accelerometer Requirements</h3>
+      <ul>
+        <li>Automatic TIB detection using the eegMobility model is validated only for Zmax data. The model's training data is publicly available at <a href="https://doi.org/10.34740/kaggle/dsv/12525688">Kaggle</a>.</li>
+        <li>If you want to test it for another device, ensure that the tri-axial accelerometer data is measured in units of g, falls within a range of ±2g (clip extreme values if needed), and includes gravitational acceleration (meaning the normalized data should center around 1g).</li>
+        <li>Analyzing EEG data without accompanying accelerometer signals may lead to the removal of some arousals due to a lack of motion information.</li>
+      </ul>
+
+      <h3>Miscellaneous</h3>
+      <ul>
+        <li>Make sure your device is connected to the internet before executing the scripts.</li>
+        <li>For non-Zmax devices, verify that sampling rates are correct. If initial results are suboptimal, consider applying normalization techniques.</li>
+        <li>Thoroughly read and <strong>update all the fields</strong> in the input-output cells according to your dataset and desired outputs before running the script.</li>
+        <li>The package has been tested on Windows 10 and 11, Ubuntu 24.04.2, and macOS Sequoia 15.3.1 (MacBook Air, 2018).</li>
+        <li>Known issue on Linux: <strong>Could not initialize GLX</strong>. To solve this, ensure that step 3 of <a href="#installation">Installation</a> was done correctly. Then try (one by one):</li>
+      </ul>
+      <pre><code>pip install PyQtWebEngine
+QT_XCB_GL_INTEGRATION=none
+QT_DEBUG_PLUGINS=1
+QT_QPA_PLATFORM=wayland spyder
+QT_QPA_PLATFORM=xcb spyder
+QT_QPA_PLATFORM=offscreen spyder</code></pre>
+      <ul>
+        <li>On non-Conda environments, if you face issues with missing packages, try installing the packages listed on <code>eegFloss_dependencies.yml</code> manually in the given order using <code>pip install [package_name]==[version]</code>.</li>
+      </ul>
+    </section>
+
+    <section id="primary-artifacts">
+      <h2>Primary Artifacts</h2>
+      <p>eegUsability detects the following artifacts in raw sleep EEG data:</p>
+      <figure>
+        <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/noise_classes_port.png" alt="Primary artifacts in EEG (spectrogram and time-domain examples)" width="600" />
+        <figcaption>Figure 2: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.</figcaption>
+      </figure>
+    </section>
+
+    <section id="eegusability-models">
+      <h2>eegUsability Models</h2>
+
+      <div class="small muted">^Results are from a test set that is a subset of the training data. †Tested on a Core i7, 8C/16T, 2.5–4.8 GHz processor with no resource-intensive processes running in parallel.</div>
+
+      <div style="overflow-x:auto">
+        <table aria-label="eegUsability models comparison">
+          <thead>
+            <tr>
+              <th>eegUsability version</th>
+              <th>Feature set(s)</th>
+              <th>Specialty</th>
+              <th>When to use</th>
+              <th>F1-score (%)</th>
+              <th>Processing time (8-hr night)†</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>“v1.0” or “default”</td>
+              <td>Spectrogram and statistical</td>
+              <td>Combines two feature sets for consistent outputs. Tested across datasets and the most dependable.</td>
+              <td>Best for general tasks requiring maximum data retention.</td>
+              <td>84.87</td>
+              <td>≈35 sec</td>
+            </tr>
+            <tr>
+              <td>“v0.8” or “weighted-M”</td>
+              <td>Spectrogram and statistical</td>
+              <td>Better at identifying M-shaped Noise but sacrifices a bit more usable data.</td>
+              <td>Ideal when M-shaped Noise detection is crucial and slight data loss is acceptable.</td>
+              <td>86.35</td>
+              <td>≈36 sec</td>
+            </tr>
+            <tr>
+              <td>“v0.6” or “binary”</td>
+              <td>Spectrogram and statistical</td>
+              <td>Only identifies whether the data is usable or not; does not differentiate noise types.</td>
+              <td>If noise differentiation is entirely unnecessary or processing simplicity is prioritized.</td>
+              <td>89.4</td>
+              <td>≈35 sec</td>
+            </tr>
+            <tr>
+              <td>“v0.7” or “lite”</td>
+              <td>Spectrogram</td>
+              <td>Uses only one feature set; similar to v1.0, but 12 times faster with comparable results.</td>
+              <td>Suitable for quick results where minor inconsistencies are tolerable.</td>
+              <td>84.94</td>
+              <td>≈3 sec</td>
+            </tr>
+            <tr>
+              <td>“v0.7.2” or “lite weighted-M”</td>
+              <td>Spectrogram</td>
+              <td>Similar to v0.8, but works on only spectrogram features, hence is faster.</td>
+              <td>Optimal for quick, precise outputs.</td>
+              <td>86.37</td>
+              <td>≈3 sec</td>
+            </tr>
+            <tr>
+              <td>“v0.7.3” or “lite binary”</td>
+              <td>Spectrogram</td>
+              <td>Similar to v0.6 but works on only spectrogram features, hence is faster.</td>
+              <td>Handy when fast results are needed without noise type differentiation.</td>
+              <td>89.29</td>
+              <td>≈3 sec</td>
+            </tr>
+            <tr>
+              <td>“v0.9” or “full”</td>
+              <td>Spectrogram and statistical</td>
+              <td>Similar to v1.0 but is trained on the entire available dataset.</td>
+              <td>Can be used if a more hypertuned model is needed.</td>
+              <td>90.11^</td>
+              <td>≈37 sec</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="sample-outputs">
+      <h2>Sample Outputs</h2>
+
+      <h3>Usability Graph</h3>
+      <figure>
+        <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/fig%206.png" alt="Usability graph of a sample Zmax recording" width="1000" />
+        <figcaption>Figure 3: The usability graph of a sample Zmax recording showing (a) a windowed spectrogram of the EEG Left channel, (b) its usability scores, (c) the normalized acceleration calculated from tri-axial ACC data, (d) a windowed spectrogram of the EEG Right channel, and (e) its usability scores.</figcaption>
+      </figure>
+
+      <h3>Hypnogram</h3>
+      <figure>
+        <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/fig%208.png" alt="Hypnogram and spectrogram outputs from eegFloss" width="1000" />
+        <figcaption>Figure 4: eegFloss outputs of a sample Zmax recording showing spectrograms of (a) EEG Left and (b) EEG Right channels, (c) the normalized acceleration, (d) hypnogram based on the artifact-rejected autoscores, and (e) the mobility labels with TIB bounded by Lights Out and Lights On moments.</figcaption>
+      </figure>
+
+      <p><strong>The <code>sample_output</code> folder contains a sample of all output files.</strong></p>
+    </section>
+
+    <section id="reference-paper">
+      <h2>Reference Paper</h2>
+      <p>More information on this package and the underlying models can be found in:</p>
+      <p>
+        Sikder, N., Zerr, P., Jafarzadeh Esfahani, M., Dresler, M., &amp; Krauledat, M. (2025).
+        <em>eegFloss</em>: A Python package for refining sleep EEG recordings using machine learning models. arXiv.
+        <a href="https://doi.org/10.48550/arXiv.2507.06433">https://doi.org/10.48550/arXiv.2507.06433</a>.
+      </p>
+      <p><a href="https://www.researchgate.net/publication/393539640_eegFloss_A_Python_package_for_refining_sleep_EEG_recordings_using_machine_learning_models">Read on ResearchGate</a></p>
+    </section>
+
+    <section id="cite">
+      <h2>Cite</h2>
+      <p>If you find this package helpful and use it in your work, please cite the reference paper as:</p>
+
+      <pre><code class="language-bibtex">@article{sikder2025eegfloss,
+  title     = {eegFloss: A Python package for refining sleep EEG recordings using machine learning models},
+  author    = {Sikder, Niloy and Zerr, Paul and Jafarzadeh Esfahani, Mahdad and Dresler, Martin and Krauledat, Matthias},
+  journal   = {arXiv preprint arXiv:2507.06433},
+  year      = {2025},
+  doi       = {10.48550/arXiv.2507.06433},
+  url       = {https://arxiv.org/abs/2507.06433},
+}</code></pre>
+
+      <p>And cite the package as:</p>
+
+      <pre><code class="language-bibtex">@software{sikder2025eegflossv1,
+  author    = {Niloy Sikder},
+  title     = {eegFloss},
+  year      = {2025},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.15823969},
+  url       = {https://doi.org/10.5281/zenodo.15823969},
+}</code></pre>
+    </section>
+
+    <section id="people">
+      <h2>People</h2>
+      <p>© <a href="https://scholar.google.com/citations?hl=en&amp;user=0ALk5j4AAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Niloy Sikder</a><sup>1,2,#</sup>,
+        <a href="https://scholar.google.com/citations?hl=en&amp;user=9CldqFoAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Paul Zerr</a><sup>1,$</sup>,
+        <a href="https://scholar.google.com/citations?hl=en&amp;user=Y-hAEQYAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Martin Dresler</a><sup>1,$</sup>, &amp;
+        <a href="https://scholar.google.com/citations?hl=en&amp;user=n9q-wxgAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Matthias Krauledat</a><sup>2,$</sup>
+      </p>
+      <p class="small">
+        <sup>1</sup>Radboud University Medical Center, Donders Institute for Brain, Cognition and Behaviour, Nijmegen, The Netherlands.<br />
+        <sup>2</sup>Faculty of Technology and Bionics, Rhine-Waal University of Applied Sciences, Kleve, Germany.<br />
+        <sup>#</sup>Developer<br />
+        <sup>$</sup>Supervisor
+      </p>
+    </section>
+
+    <section id="opportunities-for-collaboration">
+      <h2>Opportunities for Collaboration</h2>
+      <p><strong>eegFloss can currently process only sleep EEG data</strong>, and so far, it's been <strong>validated only on recordings from the Zmax headband</strong>. However, the package offers many exciting opportunities for improvement and expansion, including:</p>
+      <ul>
+        <li>Improving the artifact detection model with additional training data</li>
+        <li>Integrating an automatic sleep-stage scorer to create a complete sleep analysis pipeline</li>
+        <li>Validating performance on non-Zmax datasets</li>
+        <li>Extending support to artifact detection in wake EEG</li>
+        <li>Developing a user-friendly graphical interface (GUI)</li>
+        <li>And more</li>
+      </ul>
+      <p>We are exploring some of these ideas, but we can achieve much more through active collaboration. If any of this sounds interesting and you would like to get involved, please feel free to reach out.</p>
+
+      <p class="note"><strong>License &amp; Disclaimer:</strong> This package is provided <em>as is</em>, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.</p>
+
+      <p>For questions, assistance, suggestions, or further information: <a href="mailto:niloy.sikder@hochschule-rhein-waal.de">contact the developer</a>.</p>
+    </section>
+
+    <p class="footer">Built with ❤️ for open science. <span class="pill">MIT License</span></p>
+  </div>
+
+  <a class="top-link" href="#top" aria-label="Back to top">↑ Top</a>
+</body>
+</html>
