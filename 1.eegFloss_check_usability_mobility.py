@@ -17,16 +17,16 @@ Copyright (c) 2025 Niloy Sikder
 """
 #%% Read before executing the script:
 """
-1. eegFloss_v1.0 can process only EDF files.
-2. The script does not autoscore sleep data. You must provide sleep scores along with the data (in the same directory) for the aggregation process. However, it can generate a set of artifact-rejected pseudo-sleep scores (where '9' denotes the placeholder for a sleep stage), which can later be aggreagted with the actual sleep scores.
+1. eegFloss_v1.0 can process only EDF and BDF files.
+2. The script does not autoscore sleep data. You need to provide sleep scores along with the data (in the same directory) for the aggregation process. However, it can generate a set of artifact-rejected pseudo-sleep scores (where '9' denotes the placeholder for a sleep stage), which can later be aggregated with the actual sleep scores.
 3. Sleep stages are expected to be labeled as 0: Wake, 1: N1, 2: N2, 3: N3, and 4/5: REM. Using different labels will result in incorrect graphs and sleep statistics.
-4. Automatic TIB detection using eegMobility is applicable only to Zmax data. Its applicability to other devices' data has not been checked extensively.
+4. Automatic TIB detection using eegMobility is applicable only to Zmax data. Its applicability to other devices has not been checked extensively.
 5. Analyzing EEG signals without accelerometer outputs may result in the removal of (some) arousals.
 6. For non-Zmax data, carefully review the sampling rates. If initial outputs are unsatisfactory, consider implementing normalization techniques.
 7. If sleep statistics are calculated without TIB detection, the entire duration of the night will be considered as TIB.
-8. Consider saving the additional outputs, even if they are not immediately needed, as they can help the script skip certain steps and save time when reprocessing the same nights.
+8. Consider saving the additional outputs, even if they are not immediately needed, as they can help the script skip specific steps and save time when reprocessing the same nights.
 9. Adjust all the input variables accordingly to avoid errors.
-10. If you decide to change the ML model's version, please make sure the input & output directories do not contain previous results.
+10. If you decide to change the ML models' versions, please make sure the input & output directories do not contain previous results.
 """
 #%% Primary inputs:
 
@@ -48,7 +48,7 @@ ACC_Channels = ['dX', 'dY', 'dZ']
 # None: accelerometer data unavailable.
 
 All_Signals_in_One_File = False
-# False: Each signal is stored in a separate EDF file (e.g., for Zmax).
+# False: Each signal listed above is stored in a separate EDF file (e.g., for Zmax).
 # True: All signals are stored in a single EDF file as separate channels.
 
 Sleep_Scores_Flname = 'DreamentoScorer.txt'  #'Autoscores.txt'
@@ -380,3 +380,4 @@ for num_night, src_night in enumerate(all_nights, start=1):
 #%% Report:
 
 print_report(Output_Dir, total_nights)
+
