@@ -348,7 +348,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
 
         del samples_acc, mob_samples, stat_feats_eeg, stat_feats_acc_agg, stat_feats_acc
 
-        # Determing the  from mobility scores:
+        # Determining the Lights Out and Lights On moments from the mobility scores:
         lights_out_ep, lights_on_ep = determine_lights_out_on(mobility_scores, dest_night, acc_samp_rate)
 
         # Saving sleep and usability scores within TIB:
@@ -380,4 +380,5 @@ for num_night, src_night in enumerate(all_nights, start=1):
 #%% Report:
 
 print_report(Output_Dir, total_nights)
+
 
