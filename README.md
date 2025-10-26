@@ -131,7 +131,7 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 
 ## eegUsability Models
 
-| eegUsability version         | Feature set(s)              | Specialty                                                                                         | When to use                                                                                       | F1-score (%)      | Processing time (8-hr night)† |
+| eegUsability version         | Feature set(s)              | Specialty                                                                                         | When to use                                                                                       | F1-score (%)      | Processing time (8-hr night)<sup>†</sup> |
 |-----------------------------|-----------------------------|---------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|-------------------|-------------------------------|
 | “v1.0” or “default”         | Spectrogram and statistical | Combines two feature sets for consistent outputs. Tested across datasets and the most dependable. | Best for general tasks requiring maximum data retention.                                         | 84.87             | ≈35 sec                      |
 | “v0.8” or “weighted-M”      | Spectrogram and statistical | Better at identifying M-shaped Noise but sacrifices a bit more usable data.                      | Ideal when M-shaped Noise detection is crucial and slight data loss is acceptable.              | 86.35             | ≈36 sec                      |
@@ -139,9 +139,9 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 | “v0.7” or “lite”            | Spectrogram                 | Uses only one feature set; similar to v1.0, but 12 times faster with comparable results.          | Suitable for quick results where minor inconsistencies are tolerable.                           | 84.94             | ≈3 sec                       |
 | “v0.7.2” or “lite weighted-M” | Spectrogram               | Similar to v0.8, but works on only spectrogram features, hence is faster.                         | Optimal for quick, precise outputs.                                                              | 86.37             | ≈3 sec                       |
 | “v0.7.3” or “lite binary”   | Spectrogram                 | Similar to v0.6 but works on only spectrogram features, hence is faster.                          | Handy when fast results are needed without noise type differentiation.                          | 89.29             | ≈3 sec                       |
-| “v0.9” or “full”            | Spectrogram and statistical | Similar to v1.0 but is trained on the entire available dataset.                                   | Can be used if a more hypertuned model is needed.                                               | 90.11^            | ≈37 sec                      |
+| “v0.9” or “full”            | Spectrogram and statistical | Similar to v1.0 but is trained on the entire available dataset.                                   | Can be used if a more hypertuned model is needed.                                               | 90.11<sup>^</sup>            | ≈37 sec                      |
 
->^Results are from a test set that is a subset of the training data. †Tested on a Core i7, 8C/16T, 2.5–4.8 GHz processor with no resource-intensive processes running in parallel.
+><sup>^</sup>Results are from a test set that is a subset of the training data.<br><sup>†</sup>Tested on a Core i7, 8C/16T, 2.5–4.8 GHz processor with no resource-intensive processes running in parallel.
 
 ## Sample Outputs
 
