@@ -1,7 +1,7 @@
 ![License](https://img.shields.io/github/license/Niloy333/eegFloss?style=flat&color=brightgreen)
 [![arXiv](https://img.shields.io/badge/arXiv-2507.06433-b31b1b.svg)](https://arxiv.org/abs/2507.06433)
 ![Python](https://img.shields.io/badge/Python-3.9.12-blue.svg)
-[![DOI](https://zenodo.org/badge/926585143.svg)](https://doi.org/10.5281/zenodo.15823969)
+<!--[![DOI](https://zenodo.org/badge/926585143.svg)](https://doi.org/10.5281/zenodo.15823969)-->
 ![Repo size](https://img.shields.io/github/repo-size/Niloy333/eegFloss)
 ![Last commit](https://img.shields.io/github/last-commit/Niloy333/eegFloss)
 
