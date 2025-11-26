@@ -94,7 +94,7 @@ Here is a streamlined overview of the script’s internal workflow:
 - The sleep scores must be stored in the first column of a TXT/CSV file located in the same directory as the corresponding EDF file. The number of epochs must match the recording duration.
 
 ### Data Organization
-- Each recording should reside in a separate directory. Placing multiple recordings in the same directory will cause eegFloss outputs to overwrite one another. Provide the parent directory as the `Raw_Data_Dir`.
+- Each recording should reside in a separate directory. Placing multiple recordings in the same directory will result in only one file being processed by eegFloss, with the rest ignored. Provide the parent directory as the `Raw_Data_Dir`.
 
 ### Output Directory Management
 - While it is possible to save eegFloss outputs in the same directory as the recordings by setting `Output_Dir = Raw_Data_Dir`, this is not recommended.
