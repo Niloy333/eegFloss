@@ -87,7 +87,7 @@ Here is a streamlined overview of the script’s internal workflow:
 ### Sleep-Stage Scoring
 - eegFloss **does not include** a built-in automatic sleep-stage scorer and cannot infer sleep stages from EEG or other signals.
 - However, if you provide sleep scores alongside your data, it can generate artifact-rejected sleep scores by combining the provided sleep scores and the detected data usability.
-- If your data is not manually scored, consider using open-source automatic sleep scorers, such as [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), or [SomnoBot](https://somnobot.fh-aachen.de/) for PSG data, or [Dreamento](https://github.com/dreamento/dreamento) or [ezscore-f](https://github.com/coonwg1/ezscore) for Zmax data.
+- If your data is not manually scored, consider using open-source automatic sleep scorers, such as [U-Sleep](https://sleep.ai.ku.dk/), [YASA](https://yasa-sleep.org/), [SomnoBot](https://somnobot.fh-aachen.de/), or other models using [SleepyLand](https://github.com/biomedical-signal-processing/sleepyland) for PSG data, or [Dreamento](https://github.com/dreamento/dreamento) or [ezscore-f](https://github.com/coonwg1/ezscore) for Zmax data.
 
 ### Sleep Score Format
 - Sleep stages are expected to be labeled as 0 = Wake, 1 = N1, 2 = N2, 3 = N3, and 4 or 5 = REM. Deviating from this convention will result in incorrect visualizations and sleep statistics.
