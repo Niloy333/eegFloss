@@ -18,7 +18,7 @@ EEG data often contains artifacts caused by both internal factors (such as devic
 
 Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
 
-**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax wearable sleep EEG headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the data follows standard AASM definitions.
+**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax wearable sleep EEG headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the sleep data adhere to the American Academy of Sleep Medicine (AASM) standards and definitions.
 
 The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper](#reference-paper).
 
