@@ -206,9 +206,9 @@ And cite the package as:
 - Integrating an automatic sleep-stage scorer to create a complete sleep analysis pipeline
 - Validating performance on non-Zmax datasets
 - Extending support to artifact detection in wake EEG
-- Developing a user-friendly graphical interface (GUI)
+- Developing a user-friendly Graphical User Interface (GUI)
 
-We are exploring some of these work packages, but we can achieve much more through active collaboration. If any of this sounds interesting and you would like to get involved, please feel free to reach out.
+We are exploring some of these work packages, but we can achieve much more through active collaboration. If this sounds interesting, and you would like to get involved, please feel free to reach out.
 
 **This package is provided *as is*, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.**
 
