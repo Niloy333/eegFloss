@@ -37,10 +37,11 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
    `cd D:\Folder1\eegFloss-base\`
 6. Create a new environment named `eegFloss` with all the necessary packages:  
    `conda env create --name eegFloss --file eegFloss_dependencies.yml`
+
    You need to accept the installation by entering 'y' in the prompt (and, in some cases, may also need to provide an administrative password).
-7. Once the environment is created, activate it:  
+8. Once the environment is created, activate it:  
    `conda activate eegFloss`
-8. To start coding:
+9. To start coding:
    - Launch Spyder and manually open the scripts:
      `spyder`
    - Or, use your preferred code editor and run the script from the Anaconda Prompt. Example:  
