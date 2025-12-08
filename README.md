@@ -26,7 +26,7 @@ The package also includes *eegMobility*—an ML model that detects the degree of
 It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda environment. Follow these steps:
 
 1. Download and install [Anaconda or Miniconda](https://www.anaconda.com/download/success) for your operating system.
-2. [Download eegFloss](https://github.com/Niloy333/eegFloss/archive/refs/heads/base.zip), extract the compressed file, and place it in a suitable and accessible directory.
+2. [Download eegFloss](https://github.com/Niloy333/eegFloss/archive/refs/heads/base.zip), extract the compressed file, and place it in a suitable and accessible directory (with writing permission).
 3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
@@ -34,15 +34,16 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
    `source ~/anaconda3/bin/activate` or `source ~/miniconda3/bin/activate`.
    - **macOS**: Open a terminal.
 5. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:  
-   `cd C:\Folder1\eegFloss-base\`
+   `cd D:\Folder1\eegFloss-base\`
 6. Create a new environment named `eegFloss` with all the necessary packages:  
    `conda env create --name eegFloss --file eegFloss_dependencies.yml`
+   You need to accept the installation by entering 'y' in the prompt (and, in some cases, may also need to provide an administrative password).
 7. Once the environment is created, activate it:  
    `conda activate eegFloss`
 8. To start coding:
    - Launch Spyder and manually open the scripts:
      `spyder`
-   - Or, use your preferred code editor and run the script from the Conda prompt. Example:  
+   - Or, use your preferred code editor and run the script from the Anaconda Prompt. Example:  
      `python 1.eegFloss_check_usability_mobility.py`
 
 ## Script Descriptions
