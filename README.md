@@ -82,7 +82,7 @@ Here is a streamlined overview of the script’s internal workflow:
 
 ### File Type: EDF & BDF
 
-- eegFloss currently supports only EDF and BDF files. Therefore, raw EEG signal(s) must be stored in the EDF/BDF format.
+- eegFloss currently supports only European Data Format (EDF) and BioSemi Data Format (BDF) files. Therefore, raw EEG signal(s) must be stored in the EDF/BDF format.
 - If your data is in a different format, check whether the associated software suite of your recording device allows exporting as or converting data to EDFs.
 - If not, you can manually convert data using Python libraries such as [PyEDFlib](https://pyedflib.readthedocs.io/en/latest/) or [MNE](https://github.com/mne-tools/mne-python).
 
