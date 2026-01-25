@@ -11,7 +11,7 @@
 
 <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/eegFloss_logo.jpg" alt="eegFloss_logo" width="180">
 
-**Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read Before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people) | [Opportunities for Collaboration](#opportunities-for-collaboration)
+**Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people) | [Opportunities for Collaboration](#opportunities-for-collaboration)
 
 ## Overview
 EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or unaddressed, which can impair the performance and reliability of data-driven models or analyses, especially automatic sleep-stage scoring models,  and reduce the credibility of study outcomes.
