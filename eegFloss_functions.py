@@ -108,7 +108,7 @@ Error_Txts = {
     3: "Multiple EDF files were found in the night's directory, which is not allowed when All_Signals_in_One_File = True since this risks the results being overwritten.",
     4: "Sleep scores were not found in the night's directory, could not be read, contain non-numeric values, or were not in the first column of the file. Aggregation is not possible.",
     5: "Sleep scores' length is inconsistent with data. Condition: Sleep_Score_Length = floor(Signal_Length/Sampling_Rate/Sleep_Scores_Epoch_Length).",
-    6: 'Sleep scores contain unexpected values. Conditions: 0⩽sleep_stage⩽5 and REM= 4 or 5',
+    6: 'Sleep scores contain unexpected values. Conditions: 0 <= sleep_stage =< 5 and REM = 4 or 5',
     7: 'The aggregation of sleep and usability scores was unsuccessful. Condition: Usability_Score_Length = Sleep_Score_Length*(Sleep_Scores_Epoch_Length/Usability_Epoch_Length).',
     8: 'Sleep statistics could not be calculated (likely due to insufficient scorable epochs).',
     9: 'TIB could not be determined or TIB = 0 seconds.',
@@ -1963,5 +1963,6 @@ def print_report(out_dir, N):
 #%%
 if __name__ == "__main__":
     print(f"{Fore.GREEN}{Style.BRIGHT}\neegFloss_functions.py was run directly.\nAll necessary packages and functions were successfully loaded!{Style.RESET_ALL}")
+
 
 
