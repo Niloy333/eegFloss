@@ -30,23 +30,22 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
-   - **Linux**: Open a terminal and run:
-   `source ~/anaconda3/bin/activate` or `source ~/miniconda3/bin/activate`.
+   - **Linux**: Open a terminal and run:<br>
+   `source ~/anaconda3/bin/activate` or `source ~/miniconda3/bin/activate`
    - **macOS**: Open a terminal.
-5. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:  
+5. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:<br>
    `cd D:\Folder1\eegFloss-base\`
-6. Create a new environment named `eegFloss` with all the necessary packages:  
-   `conda env create --name eegFloss --file eegFloss_dependencies.yml`
-
+6. Create a new environment named `eegFloss` with all the necessary packages:<br>
+   `conda env create --name eegFloss --file eegFloss_dependencies.yml`<br>
    You need to permit the installation by entering `y` in the prompt (and later may also need to provide an administrative password).
-8. Once the environment is created, activate it:  
-   `conda activate eegFloss`.
-9. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings: 
+8. Once the environment is created, activate it:<br>
+   `conda activate eegFloss`
+9. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
    `set PYTHONWARNINGS=ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning`.
 11. To start coding:
-   - Launch Spyder and manually open the scripts:
+   - Launch Spyder and manually open the scripts:<br>
      `spyder`.
-   - Or, use your preferred code editor and run the script from the Anaconda Prompt. Example:  
+   - Or, use your preferred code editor and run the script from the Anaconda Prompt. Example:<br>
      `python 1.eegFloss_check_usability_mobility.py`.
 
 ## Script Descriptions
