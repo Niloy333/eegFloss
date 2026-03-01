@@ -38,11 +38,11 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 6. Create a new environment named `eegFloss` with all the necessary packages:<br>
    `conda env create --name eegFloss --file eegFloss_dependencies.yml`<br>
    You need to permit the installation by entering `y` in the prompt (and later may also need to provide an administrative password).
-8. Once the environment is created, activate it:<br>
+7. Once the environment is created, activate it:<br>
    `conda activate eegFloss`
-9. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
+8. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
    `set PYTHONWARNINGS=ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning`
-10. To start coding:
+9. To start coding:
    - Launch Spyder and manually open the scripts:<br>
      `spyder`
    - Or, use your preferred code editor and run the script from the Anaconda Prompt. Example:<br>
