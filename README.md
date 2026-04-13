@@ -36,8 +36,8 @@ It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda e
 5. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:<br>
    `cd D:\Folder1\eegFloss-base\`
 6. Create a new environment named `eegFloss` with all the necessary packages:<br>
-   `conda env create --name eegFloss --file eegFloss_dependencies.yml`<br>
-   You need to permit the installation by entering `y` in the prompt (and later may also need to provide an administrative password).
+   `conda env create --name eegFloss --file eegFloss_dependencies.yml -y`<br>
+   You may need to provide an administrative password.
 7. Once the environment is created, activate it:<br>
    `conda activate eegFloss`
 8. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
