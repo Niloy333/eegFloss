@@ -9,7 +9,9 @@
 
 **— A Python package to *floss out* artifacts from sleep EEG recordings**
 
-<img src="https://github.com/Niloy333/eegFloss/blob/base/figures/eegFloss_logo.jpg" alt="eegFloss_logo" width="180">
+<p align="center">
+  <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/eegFloss_logo.jpg" alt="eegFloss_logo" width="180">
+</p>
 
 **Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people) | [Opportunities for Collaboration](#opportunities-for-collaboration)
 
