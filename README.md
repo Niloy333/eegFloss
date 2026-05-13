@@ -18,12 +18,14 @@ EEG data often contains artifacts caused by both internal factors (such as devic
 
 Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
 
-**eegFloss** addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax wearable sleep EEG headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the sleep data adhere to the American Academy of Sleep Medicine (AASM) standards and definitions.
+eegFloss addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax wearable sleep EEG headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the sleep data adhere to the American Academy of Sleep Medicine (AASM) standards and definitions.
 
 The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper](#reference-paper).
 
+eegFloss was developed as part of a doctoral research project at the [Donders Sleep & Memory Lab](https://dreslerlab.org/), within the [Donders Centre for Cognitive Neuroimaging](https://www.ru.nl/en/departments/institutes/donders-centre-for-cognitive-neuroimaging) at Radboud University (Nijmegen, The Netherlands), in collaboration with Hochschule Rhein-Waal (Kleve, Germany) and Radboud University Medical Center (Radboudumc; Nijmegen, The Netherlands).
+
 ## Installation
-It is recommended to use **eegFloss** within a dedicated Anaconda or Miniconda environment. Follow these steps:
+It is recommended to use eegFloss within a dedicated Anaconda or Miniconda environment. Follow these steps:
 
 1. Download and install [Anaconda or Miniconda](https://www.anaconda.com/download/success) for your operating system.
 2. [Download eegFloss](https://github.com/Niloy333/eegFloss/archive/refs/heads/base.zip), extract the compressed file, and place it in a suitable and accessible directory (with writing permission).
@@ -213,4 +215,4 @@ We are exploring some of these work packages, but we can achieve much more throu
 
 **This package is provided *as is*, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.**
 
-For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@hochschule-rhein-waal.de).
+For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl).
