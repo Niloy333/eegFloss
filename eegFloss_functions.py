@@ -547,7 +547,7 @@ def read_combined_edf(src_night, channels):
 
 #%%
 def check_acc_signals(src_night, acc_signals):
-    if acc_signals.min() < -2 or acc_signals.min() > 2:
+    if acc_signals.min() < -2 or acc_signals.max() > 2:
         log_error(src_night, 12)
         return False
     else:
@@ -862,10 +862,10 @@ def predict_usability(src_night, usa_samples, usability_model, samp_rate, key = 
         save_usability_scores(src_night, usability_scores, samp_rate, key)
     usable_percent = (usability_scores == 0).sum() / usability_scores.size * 100
     
-    if usable_percent < 80:
-       print(f"{Fore.YELLOW}{Style.BRIGHT}\tDetected usable data: {round(usable_percent, 2)}%.{Style.RESET_ALL}")
-    elif usable_percent < 50:  
-      print(f"{Fore.RED}{Style.BRIGHT}\tDetected usable data: {round(usable_percent, 2)}%.{Style.RESET_ALL}")
+    if usable_percent < 50:
+       print(f"{Fore.RED}{Style.BRIGHT}\tDetected usable data: {round(usable_percent, 2)}%.{Style.RESET_ALL}")
+    elif usable_percent < 80:
+      print(f"{Fore.YELLOW}{Style.BRIGHT}\tDetected usable data: {round(usable_percent, 2)}%.{Style.RESET_ALL}")
     else:  
       print(f"{Fore.GREEN}{Style.BRIGHT}\tDetected usable data: {round(usable_percent, 2)}%.{Style.RESET_ALL}")    
     return usability_scores, pred_mat_data
@@ -912,7 +912,7 @@ def write_scores_csv(file_path, file_header, scores, start_end, channels, key):
         elif Add_Index_in_Outputs == 'data_index':
             writer.writerow(channels + ["Start_data_index", "End_data_index"])
         else:
-            writer.writerow(EEG_Channels)
+            writer.writerow(channels)
         
         for i in range(scores.shape[0]):
             if Add_Index_in_Outputs in ['timestamp', 'data_index']:
@@ -1276,7 +1276,7 @@ def calculate_n_save_stats(src_night, file_exists, sleep_scores, agg_scores, lig
             header_df['Sleep_score_source'] = [Artifact_Rejected_Scores_Flname]           
         else:
             try:
-                agg_scores_df, start_end_info_df, agg_scores_header = read_scores(dest_night, Artifact_Rejected_Scores_Flname)
+                agg_scores_df, start_end_info_df, agg_scores_header = read_scores(os.path.join(dest_night, Artifact_Rejected_Scores_Flname))
                 best_sleep_scores = agg_scores_df.values.astype(np.int8)
                 header_df['Sleep_score_source'] = [Artifact_Rejected_Scores_Flname]   
             except:
@@ -1412,7 +1412,7 @@ def get_sleep_stats(src_night, sleep_scores, lights_out_ep, lights_on_ep):
     if stats_df['TIB_min'].item() <= 1:
         log_error(src_night, 11)
         return None
-    sleep_eps = np.sum(sleep_scores <= 0)
+    sleep_eps = np.sum(sleep_scores > 0)
     
     if sleep_eps == 0:
         print("\t\t{Fore.YELLOW}{Style.BRIGHT}\t\tno sleep was detected...{Style.RESET_ALL}")
@@ -1666,7 +1666,7 @@ def plot_hypnogram(src_night, eeg_signals, eeg_samp_rate, acc_agg, acc_samp_rate
         eeg_signals = crop_n_make_nparray(eeg_signals, eeg_samp_rate)    
     if agg_scores is None:
         try:
-            agg_scores_df, start_end_info_df, agg_scores_header = read_scores(dest_night, Artifact_Rejected_Scores_Flname)
+            agg_scores_df, start_end_info_df, agg_scores_header = read_scores(os.path.join(dest_night, Artifact_Rejected_Scores_Flname))
             agg_scores = agg_scores_df.values.astype(np.int8)
         except:
             print(f"{Fore.RED}{Style.BRIGHT}\tAggregated sleep scores could not be read.\n\tHypnogram can not be plotted.{Style.RESET_ALL}")
