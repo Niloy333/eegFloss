@@ -126,7 +126,7 @@ Artifact_Rejected_Scores_Flname = 'atrifact_rejected_sleep_scores.csv'
 Lights_Out_On_Flname = 'lights_out_lights_on_moments.csv'
 # File to store the detected Lights Out and Lights On moments. Also a part of the sleep stats.
 
-Artifact_Rejected_Scores_within_TIB_Flname = 'atrifact_rejected_sleep_scores_TIB.csv'
+Artifact_Rejected_Scores_within_TIB_Flname = 'artifact_rejected_sleep_scores_TIB.csv'
 # File to store the aggregated sleep scores within the TIB duration.
 
 Usability_Scores_within_TIB_Flname = 'usability_scores_TIB.csv'
@@ -268,7 +268,7 @@ for num_night, src_night in enumerate(all_nights, start=1):
 
 #%% Step-2: Plotting usability graph:
     
-    if Usability_Graph_Flname is not None and not file_exists['usability_scores']:
+    if Usability_Graph_Flname is not None:# and not file_exists['usability_scores']:
 
         if eeg_signals is None:
             # If EEG data is not in the memory, reading it again:
