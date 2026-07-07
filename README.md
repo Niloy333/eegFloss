@@ -49,7 +49,7 @@ It is recommended to use eegFloss within a dedicated Anaconda or Miniconda envir
    `conda activate eegFloss`
 8. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
    - **Windows**: `set PYTHONWARNINGS=ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning`
-   - - **Linux**: `export PYTHONWARNINGS="ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning"`
+   - **Linux**: `export PYTHONWARNINGS="ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning"`
 9. To start coding:
    - Launch Spyder and manually open the scripts:<br>
      `spyder`
