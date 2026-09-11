@@ -221,4 +221,4 @@ We are exploring some of these work packages, but we can achieve much more throu
 
 **This package is provided *as is*, without any warranties, express or implied. eegFloss is released under the MIT License and is free to use, modify, and integrate with other software, provided that appropriate credit is given.**
 
-For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@donders.ru.nl).
+For questions, assistance, suggestions, or further information: [contact the developer](mailto:niloy.sikder@protonmail.com).
