@@ -37,14 +37,14 @@ It is recommended to use eegFloss within a dedicated Anaconda or Miniconda envir
 3. On Linux, ensure that the appropriate graphics driver is installed and hardware acceleration is enabled.
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
-   - **Linux**: Open a terminal and run:<br>
-   ```bash
-   source ~/anaconda3/bin/activate
-   ```
-   or
-   ```bash
-   source ~/miniconda3/bin/activate
-   ```
+   - **Linux**: Open a terminal and run for Anaconda:<br>
+     ```bash
+     source ~/anaconda3/bin/activate
+     ```
+     For Miniconda:
+     ```bash
+     source ~/miniconda3/bin/activate
+     ```
    - **macOS**: Open a terminal.
 6. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:<br>
    ```bash
@@ -56,15 +56,27 @@ It is recommended to use eegFloss within a dedicated Anaconda or Miniconda envir
    ```
    You may need to provide an administrative password.
 10. Once the environment is created, activate it:<br>
-   `conda activate eegFloss`
-11. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
-   - **Windows**: `set PYTHONWARNINGS=ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning`
-   - **Linux**: `export PYTHONWARNINGS="ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning"`
+    ```bash
+    conda activate eegFloss
+    ```
+12. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
+   - **Windows**:
+     ```bash
+     set PYTHONWARNINGS=ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning
+     ```
+   - **Linux**:
+     ```bash
+     export PYTHONWARNINGS="ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning"
+     ```
 11. To start coding:
    - Launch Spyder and manually open the scripts:<br>
-     `spyder`
+     ```bash
+     spyder
+     ```
    - Or, use your preferred code editor and run the script from the Anaconda Prompt. Example:<br>
-     `python 1.eegFloss_check_usability_mobility.py`
+     ```bash
+     python 1.eegFloss_check_usability_mobility.py
+     ```
 
 ## Script Descriptions
 
