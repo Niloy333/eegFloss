@@ -4,7 +4,7 @@
 [![Package DOI](https://img.shields.io/badge/Package_DOI-10.5281%2Fzenodo.15823969-blue)](https://doi.org/10.5281/zenodo.15823969)
 <!--[![DOI](https://zenodo.org/badge/926585143.svg)](https://doi.org/10.5281/zenodo.15823969) -->
 ![Repo size](https://img.shields.io/github/repo-size/Niloy333/eegFloss)
-![Last commit](https://img.shields.io/github/last-commit/Niloy333/eegFloss)
+<!--![Last commit](https://img.shields.io/github/last-commit/Niloy333/eegFloss)-->
 
 # *eegFloss*
 
@@ -38,19 +38,29 @@ It is recommended to use eegFloss within a dedicated Anaconda or Miniconda envir
 4. Launch the Anaconda Prompt:
    - **Windows**: Search for "Anaconda Prompt" in the Start menu.
    - **Linux**: Open a terminal and run:<br>
-   `source ~/anaconda3/bin/activate` or `source ~/miniconda3/bin/activate`
+   ```bash
+   source ~/anaconda3/bin/activate
+   ```
+   or
+   ```bash
+   source ~/miniconda3/bin/activate
+   ```
    - **macOS**: Open a terminal.
-5. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:<br>
-   `cd D:\Folder1\eegFloss-base\`
-6. Create a new environment named `eegFloss` with all the necessary packages:<br>
-   `conda env create --name eegFloss --file eegFloss_dependencies.yml -y`<br>
+6. In the prompt, navigate to the extracted `eegFloss` directory (the directory of the `.py` files). Example:<br>
+   ```bash
+   cd D:\Folder1\eegFloss-base\
+   ```
+8. Create a new environment named `eegFloss` with all the necessary packages:<br>
+   ```bash
+   conda env create --name eegFloss --file eegFloss_dependencies.yml -y
+   ```
    You may need to provide an administrative password.
-7. Once the environment is created, activate it:<br>
+10. Once the environment is created, activate it:<br>
    `conda activate eegFloss`
-8. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
+11. Set `PYTHONWARNINGS` before launching Spyder to suppress noisy `pkg_resources` deprecation warning and the Python 3.9 end-of-life warnings:<br>
    - **Windows**: `set PYTHONWARNINGS=ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning`
    - **Linux**: `export PYTHONWARNINGS="ignore:pkg_resources is deprecated as an API:UserWarning,ignore:You are using a Python version 3.9 past its end of life:FutureWarning"`
-9. To start coding:
+11. To start coding:
    - Launch Spyder and manually open the scripts:<br>
      `spyder`
    - Or, use your preferred code editor and run the script from the Anaconda Prompt. Example:<br>
