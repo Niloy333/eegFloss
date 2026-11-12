@@ -16,18 +16,22 @@
 
 **Table of Contents:** [Overview](#overview) | [Installation](#installation) | [Script Descriptions](#script-descriptions) | [Read before Execution](#read-before-execution) | [Primary Artifacts](#primary-artifacts) | [eegUsability Models](#eegusability-models) | [Sample Outputs](#sample-outputs) | [Reference Paper](#reference-paper) | [Cite](#cite) | [People](#people) | [Opportunities for Collaboration](#opportunities-for-collaboration)
 
+---
+
 ## Overview
 EEG data often contains artifacts caused by both internal factors (such as device issues) and external influences (such as movement or environmental noise). In sleep research, these artifacts frequently go unnoticed or unaddressed, which can impair the performance and reliability of data-driven models or analyses, especially automatic sleep-stage scoring models,  and reduce the credibility of study outcomes.
 
 Most existing artifact detection methods rely on threshold-based techniques. While easy to implement, these methods often struggle to detect complex or unfamiliar artifacts and typically lack generalizability across datasets.
 
-eegFloss addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and evaluated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax wearable sleep EEG headband. However, it can be applied to sleep EEG data from any device to detect common artifacts and assess data usability, provided the sleep data adhere to the American Academy of Sleep Medicine (AASM) standards and definitions. 
+eegFloss addresses this challenge with *eegUsability*—a machine learning (ML) model designed to detect artifact-contaminated EEG segments in sleep recordings. The model was trained and internally validated on manually artifact-labeled EEG data from 15 participants, collected over 127 nights using the Zmax wearable sleep EEG headband. It was further validated externally on 25 nights of simultaneous Zmax and PSG (SOMNOscreen plus) recordings from the [Wearanize+](https://github.com/Niloy333/Wearanize_plus) dataset, manually artifact-labeled by an independent, blinded scorer using [EEG-artifact-scorer](https://github.com/Niloy333/EEG-artifact-scorer). On Zmax data, it achieved almost perfect agreement with the manual labels (κ ≈ 0.85); on PSG data, it retained ≈99% of usable data but detected only about a third of the manually marked artifacts. eegUsability can also be applied to sleep EEG data from other devices, provided the sleep data adhere to the American Academy of Sleep Medicine (AASM) standards and definition. However, such use should currently be considered experimental. See the [associated paper](#reference-paper) for details.
 
-The sleep EEG data used to train eegUsability model(s) is a part of the [Donders-2022 dataset](https://github.com/Niloy333/donders-2022), which is currently in the process of being released, along with the manual artifact labels for Zmax data. Please see the dataset page for updates and access instructions.
+The sleep EEG data used to train the eegUsability model(s) is a part of the [Donders-2022 dataset](https://github.com/Niloy333/donders-2022), which is currently in the process of being released, along with the manual artifact labels for Zmax data. Please see the dataset page for updates and access instructions. The manual artifact labels used for external validation are available in the [Wearanize_plus](https://github.com/Niloy333/Wearanize_plus/blob/base/README.md#manual_artifact_scores) repository.
 
 The package also includes *eegMobility*—an ML model that detects the degree of movement throughout the night based on **Zmax** accelerometer data. This information is used to automatically detect Time-in-Bed (TIB). For further details, please refer to the [associated paper](#reference-paper).
 
 eegFloss was developed as part of a doctoral research project at the [Donders Sleep & Memory Lab](https://dreslerlab.org/), within the [Donders Centre for Cognitive Neuroimaging](https://www.ru.nl/en/departments/institutes/donders-centre-for-cognitive-neuroimaging) at Radboud University (Nijmegen, The Netherlands), in collaboration with Hochschule Rhein-Waal (Kleve, Germany) and Radboud University Medical Center (Radboudumc; Nijmegen, The Netherlands).
+
+---
 
 ## Installation
 It is recommended to use eegFloss within a dedicated Anaconda or Miniconda environment. Follow these steps:
@@ -78,6 +82,8 @@ It is recommended to use eegFloss within a dedicated Anaconda or Miniconda envir
      python 1.eegFloss_check_usability_mobility.py
      ```
 
+---
+
 ## Script Descriptions
 
 ### `1.eegFloss_check_usability_mobility.py`
@@ -109,7 +115,9 @@ Here is a streamlined overview of the script’s internal workflow:
 
 **Please read the comments in the input-output cells of each script carefully before running the script.**
 
-# Read before Execution
+---
+
+## Read before Execution
 
 ### File Type: EDF & BDF
 
@@ -156,11 +164,15 @@ Here is a streamlined overview of the script’s internal workflow:
   ```
 - On non-Conda environments, if you face issues with missing packages, try installing the packages listed on `eegFloss_dependencies.yml` manually in the given order using `pip install [package_name]==[version]`.
 
+---
+
 ## Primary Artifacts
 eegUsability detects the following artifacts in raw sleep EEG data:
 <img src="https://github.com/Niloy333/eegFloss/blob/base/figures/noise_classes_port.png" alt="primary_artifacts" width="600">
 
 >Figure 2: (a) A windowed spectrogram (blue: low power, red: high power) of a sample Zmax EEG channel, highlighting segments containing different artifacts. The corresponding time-domain representations of these segments are shown for (b) Good Data, (c) No Data, (d) High Noise, (e) Spiky Noise, and (f) M-shaped Noise.
+
+---
 
 ## eegUsability Models
 
@@ -176,6 +188,8 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 
 ><sup>^</sup>Results are from a test set that is a subset of the training data.<br><sup>†</sup>Tested on a Core i7, 8C/16T, 2.5–4.8 GHz processor with no resource-intensive processes running in parallel.
 
+---
+
 ## Sample Outputs
 
 ### Usability Graph
@@ -190,12 +204,16 @@ eegUsability detects the following artifacts in raw sleep EEG data:
 
 **The `sample_output` folder contains a sample of all output files.**
 
+---
+
 ## Reference Paper
 More information on this package and the underlying models can be found in:
 
 Sikder, N., Zerr, P., Jafarzadeh Esfahani, M., Dresler, M., & Krauledat, M. (2025). *eegFloss*: A Python package for refining sleep EEG recordings using machine learning models. arXiv. [https://doi.org/10.48550/arXiv.2507.06433](https://doi.org/10.48550/arXiv.2507.06433).
 
 [Read on ResearchGate](https://www.researchgate.net/publication/393539640_eegFloss_A_Python_package_for_refining_sleep_EEG_recordings_using_machine_learning_models)
+
+---
 
 ## Cite
 If you find this package helpful and use it in your work, please cite the reference paper as:
@@ -224,6 +242,8 @@ And cite the package as:
 }
 ```
 
+---
+
 ## People
 © [Niloy Sikder](https://scholar.google.com/citations?hl=en&user=0ALk5j4AAAAJ&view_op=list_works&sortby=pubdate)<sup>1,2,#</sup>, [Paul Zerr](https://scholar.google.com/citations?hl=en&user=9CldqFoAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, [Martin Dresler](https://scholar.google.com/citations?hl=en&user=Y-hAEQYAAAAJ&view_op=list_works&sortby=pubdate)<sup>1,$</sup>, & [Matthias Krauledat](https://scholar.google.com/citations?hl=en&user=n9q-wxgAAAAJ&view_op=list_works&sortby=pubdate)<sup>2,$</sup>   
 <sup>1</sup>Radboud University Medical Center, Donders Institute for Brain, Cognition and Behaviour, Nijmegen, The Netherlands.  
@@ -231,8 +251,10 @@ And cite the package as:
 <sup>#</sup>Developer  
 <sup>$</sup>Supervisor
 
+---
+
 ## Opportunities for Collaboration
-**eegFloss can currently process only sleep EEG data**, and so far, it's been **validated only on recordings from the Zmax headband**. However, the package offers many exciting opportunities for improvement and expansion, including:
+**eegFloss can currently process only sleep EEG data**, and so far, it's been **validated only on recordings from the Zmax headband and SOMNOscreen Plus (frontal channels)**. However, the package offers many exciting opportunities for improvement and expansion, including:
 - Improving the artifact detection model with additional training data
 - Integrating an automatic sleep-stage scorer to create a complete sleep analysis pipeline
 - Validating performance on non-Zmax datasets
